@@ -1,0 +1,1653 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>研究フワフワ大脱出</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#3D4BB8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="研究フワフワ">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Yomogi&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FCFCF9; --grid:rgba(64,112,196,.085); --grid2:rgba(64,112,196,.17); --margin:rgba(214,64,46,.28);
+  --sheet:#FFFFFF; --ink:#1E2A47; --cink:#1E2A47; --pencil:#5C6380; --line:#C7D0E2;
+  --red:#D6402E; --marker:#FFE45A; --marker2:#BFEAFF; --tape:rgba(255,212,110,.6);
+  --accent:#1E2A47; --accent-soft:#EEF2FA; --heat:#D6402E; --star:#C99512; --focus-bg:#FCFCF9;
+  --r-N:#7E879C; --r-R:#2F86C6; --r-SR:#8550D0; --r-SSR:#C2820C; --r-UR:#D1478F;
+  --s-hs:#2E9E6B; --s-ug:#2F78C9; --s-gr:#8550D0; --s-ot:#7A8099;
+  --hand:"Yomogi","Klee One","Hiragino Maru Gothic ProN",cursive;
+  --body:"Klee One","Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  --wob1:18px 225px 15px 255px/255px 15px 225px 18px;
+  --wob2:255px 15px 225px 15px/15px 225px 15px 255px;
+  --wob3:15px 255px 20px 225px/225px 20px 255px 15px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#18202E; --grid:rgba(170,195,255,.055); --grid2:rgba(170,195,255,.11); --margin:rgba(255,123,102,.25);
+    --sheet:#202938; --ink:#ECE9E1; --cink:#ECE9E1; --pencil:#A8B0C6; --line:#3A4558;
+    --red:#FF7B66; --marker:rgba(255,220,80,.36); --marker2:rgba(120,200,255,.28); --tape:rgba(255,212,110,.22);
+    --accent:#ECE9E1; --accent-soft:#283246; --heat:#FF7B66; --star:#F0C75A; --focus-bg:#18202E;
+    --r-N:#A3ABBE; --r-R:#6DB6E8; --r-SR:#B48CF0; --r-SSR:#F0BE55; --r-UR:#F07EBE;
+    --s-hs:#4CC48C; --s-ug:#6FA5EE; --s-gr:#B48CF0; --s-ot:#A3A9C6;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#18202E; --grid:rgba(170,195,255,.055); --grid2:rgba(170,195,255,.11); --margin:rgba(255,123,102,.25);
+  --sheet:#202938; --ink:#ECE9E1; --cink:#ECE9E1; --pencil:#A8B0C6; --line:#3A4558;
+  --red:#FF7B66; --marker:rgba(255,220,80,.36); --marker2:rgba(120,200,255,.28); --tape:rgba(255,212,110,.22);
+  --accent:#ECE9E1; --accent-soft:#283246; --heat:#FF7B66; --star:#F0C75A; --focus-bg:#18202E;
+  --r-N:#A3ABBE; --r-R:#6DB6E8; --r-SR:#B48CF0; --r-SSR:#F0BE55; --r-UR:#F07EBE;
+  --s-hs:#4CC48C; --s-ug:#6FA5EE; --s-gr:#B48CF0; --s-ot:#A3A9C6;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;color:var(--ink);font-family:var(--body);font-weight:600;font-size:16px;line-height:1.7;-webkit-tap-highlight-color:transparent;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,16px 16px,16px 16px;background-attachment:fixed}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px dashed var(--red);outline-offset:3px}
+img,svg{max-width:100%}
+#app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;position:relative}
+#app::before{content:"";position:fixed;top:0;bottom:0;left:max(10px,calc(50% - 230px));width:0;border-left:2px solid var(--margin);pointer-events:none}
+main{flex:1;padding:16px 18px 112px 26px}
+body.nonav main{padding-bottom:32px}
+.screen{display:flex;flex-direction:column;gap:18px;min-height:100%}
+
+/* 紙・テープ・蛍光ペン */
+.paper{background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob1);box-shadow:2px 3px 0 color-mix(in srgb,var(--ink) 14%,transparent);position:relative}
+.tape::before{content:"";position:absolute;top:-11px;left:50%;width:76px;height:22px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);border-left:1px dashed rgba(0,0,0,.08);border-right:1px dashed rgba(0,0,0,.08)}
+.hl{background:linear-gradient(100deg,transparent 0 1%,var(--marker) 2% 97%,transparent 99%) 0 72%/100% 46% no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .12em}
+
+/* ボタン */
+.btn{border:2px solid var(--ink);background:var(--sheet);border-radius:var(--wob2);min-height:52px;padding:10px 18px;font-weight:600;font-size:17px;transition:transform .07s ease,box-shadow .07s}
+.btn:active{transform:translate(2px,3px)}
+.btn-primary{width:100%;min-height:70px;font-family:var(--hand);font-weight:400;font-size:26px;letter-spacing:.06em;background:var(--marker);border:2.5px solid var(--ink);border-radius:var(--wob1);box-shadow:3px 4px 0 var(--ink);transform:rotate(-.6deg)}
+.btn-primary:active{transform:rotate(-.6deg) translate(3px,4px);box-shadow:0 0 0 var(--ink)}
+.btn-primary:disabled{opacity:.45;cursor:default;transform:rotate(-.6deg);box-shadow:none}
+.btn-soft{width:100%;box-shadow:2px 3px 0 color-mix(in srgb,var(--ink) 25%,transparent)}
+.btn-quiet{background:transparent;border:0;color:var(--pencil);font-weight:600;font-size:15px;min-height:46px;padding:8px 12px;text-decoration:underline wavy;text-decoration-color:color-mix(in srgb,var(--pencil) 60%,transparent);text-underline-offset:5px}
+.btn-small{min-height:40px;font-size:14px;padding:4px 14px;border:2px solid var(--ink);border-radius:var(--wob3);background:var(--sheet);font-weight:600}
+
+/* 入力 */
+.ob h1{font-family:var(--hand);font-weight:400;font-size:32px;line-height:1.35;margin:10px 0 4px}
+.lead{margin:0;color:var(--pencil);font-size:15px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label,.field .lbl{font-weight:600;font-size:16px}
+.field input,textarea,select{font:inherit;font-size:16px;padding:12px 14px;border-radius:var(--wob3);border:2px solid var(--ink);background:var(--sheet);color:var(--ink)}
+.field input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 0 4px var(--marker)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--ink);background:var(--sheet);border-radius:var(--wob3);padding:6px 14px;min-height:44px;font-size:15px;font-weight:600;transition:transform .07s}
+.chip:nth-child(2n){border-radius:var(--wob2)}
+.chip:active{transform:scale(.95)}
+.chip[aria-pressed="true"]{background:var(--marker2);box-shadow:2px 2px 0 var(--ink)}
+.note{font-size:14px;color:var(--pencil);background:var(--sheet);border:2px dashed var(--line);border-radius:var(--wob2);padding:12px 14px;font-weight:600}
+
+/* ホーム */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px}
+.hello{font-family:var(--hand);font-size:18px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob3);padding:4px 12px;font-size:14px;min-height:40px;font-weight:600}
+.pill b{font-variant-numeric:tabular-nums}
+.pill.ready{background:var(--marker);transform:rotate(1.5deg)}
+.guardian{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:0;padding:0;margin:0 auto}
+.guardian .art{width:158px;height:158px;animation:bob 4.5s ease-in-out infinite}
+.guardian.hop .art{animation:hop .45s cubic-bezier(.3,1.6,.5,1)}
+.guardian .line{font-family:var(--hand);font-size:18px;color:var(--ink);min-height:1.6em;position:relative;padding:0 6px}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+@keyframes hop{0%{transform:translateY(0) scale(1)}40%{transform:translateY(-18px) scale(1.06,.94) rotate(-4deg)}100%{transform:translateY(0) scale(1)}}
+.desk{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin:-10px auto 0;padding:0 10px 2px;border-bottom:2.5px solid var(--ink);border-radius:0 0 40% 50%/0 0 6px 4px;max-width:90%}
+.tool{width:30px;height:30px;color:var(--ink);display:inline-block}
+.tool svg{width:100%;height:100%;display:block}
+.step{padding:20px 20px 22px;transform:rotate(.4deg)}
+.step .k{font-size:14px;font-weight:600;color:var(--red);display:flex;justify-content:space-between;gap:8px;margin-bottom:2px}
+.step .k span:last-child{color:var(--pencil)}
+.step .t{font-family:var(--hand);font-size:clamp(24px,6.9vw,31px);line-height:1.5;margin:0;word-break:auto-phrase;text-wrap:pretty}
+.home-actions{display:flex;flex-direction:column;align-items:center;gap:2px}
+.tools{margin-top:12px;border-top:1.5px dashed var(--line);padding-top:10px}
+.tools .tl{font-size:13px;color:var(--pencil);display:block;margin-bottom:8px}
+.tlrow{display:flex;flex-wrap:wrap;gap:8px}
+.tbtn{flex:1 1 28%;min-width:92px;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:var(--ink);background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob3);padding:4px 6px;box-shadow:2px 2px 0 var(--ink);line-height:1.3;transition:transform .07s,box-shadow .07s}
+.tbtn:nth-child(2){border-radius:var(--wob2)}
+.tbtn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.tbtn b{font-size:14px}
+.tbtn small{font-size:11px;color:var(--pencil);font-weight:600}
+
+/* 活性化エネルギーのゲージ */
+.gauge{padding:10px 14px 8px;display:block;width:100%;text-align:left;font:inherit;color:inherit;border-radius:var(--wob2)}
+.gauge svg{width:100%;height:auto;display:block;overflow:visible}
+.gauge .g-curve{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.gauge .g-fill{fill:none;stroke:var(--marker);stroke-width:13;stroke-linecap:round;opacity:.95}
+.gauge .g-dot{fill:var(--red);stroke:var(--ink);stroke-width:2}
+.gauge .g-cap{display:flex;justify-content:space-between;font-size:14px;color:var(--pencil);gap:8px}
+.gauge .g-cap b{color:var(--ink);font-family:var(--hand);font-weight:400;font-size:19px}
+
+/* 研究中・終了 */
+.focus{justify-content:center;align-items:center;text-align:center;min-height:calc(100vh - 80px);gap:28px}
+.focus .mode{font-size:12px;letter-spacing:.3em;color:var(--pencil);opacity:.8}
+.focus .clock{font-family:var(--body);font-size:clamp(58px,20vw,90px);font-weight:400;font-variant-numeric:tabular-nums;line-height:1}
+.focus .end{background:transparent;border:2px solid var(--ink);color:var(--pencil);border-radius:var(--wob2);min-height:52px;padding:8px 26px;font-weight:600}
+.endscr{justify-content:center;min-height:calc(100vh - 80px);text-align:center;gap:22px}
+.endscr h2{font-family:var(--hand);font-weight:400;font-size:32px;margin:0}
+.endscr .q{font-size:19px;font-weight:600;margin:0}
+.endscr .dur{color:var(--pencil);margin:0}
+.pair{display:grid;gap:14px}
+
+/* 問いの型・くらべっこ */
+.stems{margin-top:12px;border-top:1.5px dashed var(--line);padding-top:10px}
+.stems .tl{font-size:13px;color:var(--pencil);display:block;margin-bottom:8px}
+.stemrow{display:flex;flex-wrap:wrap;gap:6px}
+.stem{border:2px solid var(--ink);background:var(--sheet);border-radius:var(--wob3);padding:4px 10px;min-height:40px;font-size:14px;font-weight:600;text-align:left}
+.stem:nth-child(2n){border-radius:var(--wob2)}
+.stem[aria-pressed="true"]{background:var(--marker2)}
+.stemex{margin:10px 0 0;font-family:var(--hand);font-size:17px;line-height:1.55;min-height:2.4em}
+.qlink{padding-left:0;margin-top:2px}
+.qcard{padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px;transform:rotate(-.3deg)}
+.quiz{gap:12px}
+.qscene{margin:0;font-family:var(--hand);font-size:21px;line-height:1.5}
+.qopts{display:flex;flex-direction:column;gap:10px}
+.qopt{text-align:left;border:2px solid var(--ink);background:var(--sheet);border-radius:var(--wob2);padding:10px 14px;min-height:54px;font-family:var(--hand);font-size:18px;line-height:1.45;box-shadow:2px 3px 0 var(--ink);transition:transform .07s}
+.qopt:nth-child(2){border-radius:var(--wob3)}
+.qopt:active{transform:translate(2px,3px);box-shadow:none}
+.qopt:disabled{box-shadow:none;cursor:default}
+.qopt.lv3{background:var(--marker)}
+.qopt.lv1,.qopt.lv2{color:var(--pencil)}
+.qopt.chosen{outline:3px solid var(--red);outline-offset:2px}
+.qtag{display:block;font-family:var(--body);font-size:12px;font-weight:600;color:var(--red)}
+.qopt.lv3 .qtag{color:var(--ink)}
+.qwhy{display:block;font-family:var(--body);font-size:13px;font-weight:600;color:var(--pencil);margin-top:4px}
+.qopt.lv3 .qwhy{color:var(--ink)}
+.qres{margin:0;font-family:var(--hand);font-size:20px}
+
+/* 下書きメモ */
+.memo-btn{background:var(--sheet);border:2px dashed var(--ink);border-radius:var(--wob3);min-height:48px;padding:6px 20px;color:var(--ink);font-weight:600;font-size:15px}
+.mlist{display:flex;flex-direction:column;width:100%;text-align:left}
+.mitem{border-bottom:1.5px dashed var(--line);padding:8px 0 10px;display:grid;grid-template-columns:50px 1fr;gap:6px}
+.mtime{color:var(--red);font-size:14px;font-variant-numeric:tabular-nums;padding-top:3px}
+.mtext{font-family:var(--hand);font-size:18px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.mold{text-decoration:line-through;color:var(--pencil);font-size:15px;white-space:pre-wrap;word-break:break-word}
+.medit-at{font-family:var(--body);font-size:12px;color:var(--pencil)}
+.mphoto{max-width:100%;max-height:230px;border:2px solid var(--ink);border-radius:3px;transform:rotate(-1deg);display:block;margin:4px 0 6px;background:var(--paper)}
+.mact{display:flex;gap:2px;flex-wrap:wrap}
+.mact button{background:none;border:0;color:var(--pencil);font-size:13px;text-decoration:underline;min-height:36px;padding:2px 6px 2px 0}
+.mvoid .mtext{text-decoration:line-through;color:var(--pencil)}
+.mvoid .mphoto{opacity:.4}
+.mcompose{display:flex;flex-direction:column;gap:8px;width:100%}
+.mcompose textarea{min-height:72px;font-family:var(--hand);font-size:18px;width:100%}
+.mrow{display:flex;gap:8px}
+.mrow .btn{flex:1;min-height:48px}
+.endmemos{max-height:40vh;overflow:auto;text-align:left;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.mdays{display:flex;flex-direction:column;gap:8px}
+.mday{width:100%;display:flex;align-items:center;gap:10px;padding:10px 14px;min-height:54px;text-align:left;font:inherit;color:inherit}
+
+/* 見出し */
+h2.ttl{font-family:var(--hand);font-weight:400;font-size:30px;margin:2px 0 0;line-height:1.3}
+h2.ttl.sm{font-size:24px}
+.count{color:var(--pencil);margin:0;font-size:15px}
+
+/* 探究マップ */
+.phase{display:flex;flex-direction:column;gap:10px}
+.phase h3{margin:8px 0 0;font-size:15px;color:var(--red);font-weight:600}
+.node{background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob3);overflow:hidden}
+.node:nth-child(odd){border-radius:var(--wob2)}
+.node.here{box-shadow:3px 3px 0 var(--ink)}
+.node>button{width:100%;background:none;border:0;display:flex;align-items:center;gap:12px;padding:10px 14px;text-align:left;min-height:56px}
+.node .dotc{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--hand);font-size:18px;border:2px solid var(--ink)}
+.node.here .dotc{border-color:var(--red);color:var(--red);box-shadow:0 0 0 3px var(--sheet),0 0 0 5px var(--red)}
+.node .nm{flex:1;font-weight:600}
+.node .fp{font-size:13px;color:var(--pencil);white-space:nowrap}
+.node .body{padding:0 14px 14px;display:flex;flex-direction:column;gap:2px}
+.mstep{background:none;border:0;border-bottom:1.5px dashed var(--line);padding:10px 2px;text-align:left;font-family:var(--hand);font-size:18px;min-height:46px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.mstep small{color:var(--red);font-family:var(--body);font-size:13px;white-space:nowrap}
+.node .body .btn-soft{margin-top:8px}
+.loop{text-align:center;color:var(--pencil);font-size:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob3);padding:12px 14px}
+.stat:nth-child(2n){border-radius:var(--wob2)}
+.stat .v{font-family:var(--hand);font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat .v small{font-family:var(--body);font-size:14px;color:var(--pencil)}
+.stat .l{font-size:13px;color:var(--pencil);margin-top:4px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--pencil);border-radius:var(--wob2)}
+.rcard b{color:var(--ink);font-size:14px}
+.rcard .rmark{width:46px;height:28px}
+.rcard.locked{background:transparent;border:2px dashed var(--line);box-shadow:none;justify-content:center;align-items:center;min-height:96px;text-align:center}
+.settings{display:flex;flex-direction:column;gap:8px}
+.testbox{display:flex;flex-direction:column;gap:8px}
+.code{font-family:var(--hand);font-size:26px;letter-spacing:.12em;color:var(--ink)}
+.exportbox{width:100%;min-height:150px;font-size:12px;font-family:ui-monospace,Menlo,Consolas,monospace;line-height:1.5;font-weight:400}
+
+/* 広場 */
+.composer{padding:14px;display:flex;flex-direction:column;gap:10px}
+.composer textarea{width:100%;min-height:84px;resize:vertical;font-family:var(--hand);font-size:18px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.crow .cc{font-size:13px;color:var(--pencil);font-variant-numeric:tabular-nums}
+.filters{display:flex;flex-direction:column;gap:8px}
+.filters .row{display:flex;gap:8px}
+.filters input,.filters select{flex:1;min-width:0;padding:8px 12px;font-size:15px}
+.post{background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob1);padding:14px;display:flex;flex-direction:column;gap:8px;position:relative}
+.post:nth-child(even){border-radius:var(--wob2);transform:rotate(-.4deg)}
+.post header{display:flex;gap:10px;align-items:center}
+.pava{width:44px;height:44px;flex:none;border-radius:50%;border:2px solid var(--ink);background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.pava .art{width:40px;height:40px}
+.who{flex:1;min-width:0}
+.who b{font-size:15px}
+.meta{font-size:12px;color:var(--pencil)}
+.sb{display:inline-block;font-size:11px;font-weight:600;color:var(--sb);border:1.5px solid var(--sb);border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:2px}
+.cat{font-size:12px;font-weight:600;color:var(--red)}
+.ptext{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--hand);font-size:18px;line-height:1.6}
+.reacts{display:flex;flex-wrap:wrap;gap:6px}
+.rbtn{border:2px solid var(--ink);background:var(--sheet);border-radius:var(--wob3);padding:2px 12px;min-height:38px;font-size:14px;font-weight:600;transition:transform .07s}
+.rbtn:active{transform:scale(.92)}
+.rbtn[aria-pressed="true"]{background:var(--marker)}
+.rbtn.pop{animation:pop .3s ease}
+@keyframes pop{50%{transform:scale(1.18) rotate(-4deg)}}
+.replies{display:flex;flex-direction:column;gap:6px;border-top:1.5px dashed var(--line);padding-top:8px}
+.reply{font-size:14px;display:flex;gap:8px;align-items:flex-start}
+.reply .rt{flex:1;min-width:0;word-break:break-word}
+.reply.stepr .rt{font-family:var(--hand);font-size:17px}
+.reply .tag{font-family:var(--body);font-size:11px;font-weight:600;color:var(--red);display:block}
+.icon-btn{background:none;border:0;color:var(--pencil);font-size:13px;min-height:36px;padding:4px 8px}
+.empty{text-align:center;color:var(--pencil);padding:24px 8px;font-family:var(--hand);font-size:18px}
+
+/* 観測ノート */
+.obs-page{padding:22px 10px;display:flex;justify-content:center;border-radius:var(--wob2)}
+.lens{position:relative;width:min(270px,76vw);aspect-ratio:1;border-radius:50%;border:3px solid var(--ink);background:var(--paper);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 8px var(--sheet),inset 0 0 0 10px var(--line)}
+.lens .cross{position:absolute;inset:0;width:100%;height:100%;color:var(--pencil)}
+.lens[data-phase="scan"] .cross{animation:spin 1.6s linear infinite}
+.creature{position:relative;width:64%;aspect-ratio:1}
+.creature>div{position:absolute;inset:0;opacity:0;transition:opacity .35s}
+.creature .halo{inset:-24%}
+.creature .halo svg,.creature .sk svg,.creature .paint svg{width:100%;height:100%}
+.lens[data-phase="sil"] .sk,.lens[data-phase="glow"] .sk{opacity:1}
+.lens[data-phase="glow"] .halo,.lens[data-phase="reveal"] .halo{opacity:1}
+.creature .paint{clip-path:circle(0% at 35% 65%);transition:clip-path .85s cubic-bezier(.5,0,.3,1),opacity .15s}
+.lens[data-phase="reveal"] .paint{opacity:1;clip-path:circle(90% at 35% 65%)}
+.lens[data-phase="reveal"] .sk{opacity:0;transition-delay:.5s}
+.idle-msg{position:absolute;text-align:center;font-family:var(--hand);font-size:17px;color:var(--pencil);padding:0 30px;margin:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.obs-panel{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.obs-panel .result-name{font-family:var(--hand);font-size:30px;margin:0;line-height:1.3}
+.obs-panel .sub{color:var(--pencil);margin:0;font-size:15px}
+.badge{display:inline-block;font-family:var(--body);font-size:12px;font-weight:600;padding:0 8px;border-radius:3px;color:var(--rb,var(--r-N));border:2px solid var(--rb,var(--r-N));letter-spacing:.08em;transform:rotate(-5deg);background:var(--sheet)}
+details.rates{background:var(--sheet);border:2px dashed var(--line);border-radius:var(--wob3);padding:2px 14px;font-size:14px}
+details.rates summary{min-height:44px;display:flex;align-items:center;color:var(--pencil);cursor:pointer}
+.rates table{width:100%;border-collapse:collapse;margin:4px 0 8px}
+.rates td{padding:5px 0;border-top:1px dashed var(--line)}
+.rates td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.drawin{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .5s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* 図鑑 */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 10px}
+.cell{background:var(--sheet);border:2px solid var(--ink);border-radius:var(--wob3);padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;min-height:150px;position:relative}
+.cell:nth-child(3n+2){border-radius:var(--wob2);transform:rotate(.8deg)}
+.cell:nth-child(3n){transform:rotate(-.6deg)}
+.cell .art{width:82px;height:82px}
+.cell .nm{font-size:12px;font-weight:600;line-height:1.35;word-break:break-word}
+.cell.unknown{background:transparent;border-style:dashed;border-color:var(--line)}
+.cell.unknown .nm{color:var(--pencil);letter-spacing:.1em}
+.cell.current::after{content:"";position:absolute;inset:-6px;border:2.5px solid var(--red);border-radius:50% 45% 55% 48%/48% 55% 45% 52%;pointer-events:none;transform:rotate(-3deg)}
+
+/* シート */
+.sheet-bg{position:fixed;inset:0;background:rgba(20,24,40,.45);display:flex;align-items:flex-end;justify-content:center;z-index:30}
+.sheet{background-color:var(--sheet);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px;border:2px solid var(--ink);border-bottom:0;width:100%;max-width:480px;border-radius:24px 30px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;max-height:92vh;overflow:auto}
+.sheet .art{width:170px;height:170px}
+.sheet h3{margin:0;font-family:var(--hand);font-weight:400;font-size:28px}
+.sheet.form{align-items:stretch;text-align:left}
+.memo{list-style:none;margin:4px 0 0;padding:0;width:100%;text-align:left}
+.memo li{font-family:var(--hand);font-size:17px;line-height:1.55;border-bottom:1.5px dashed var(--line);padding:7px 2px 5px}
+.memo li.locked{color:var(--pencil);font-family:var(--body);font-size:14px}
+
+/* 反応演出 */
+.react-ov{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer;background:rgba(20,24,40,.5);animation:fadeIn .2s both}
+.rpage{width:min(100%,420px);padding:16px 14px 18px;text-align:center;transform:rotate(-1deg);animation:slideIn .35s cubic-bezier(.2,.9,.3,1.2) both;
+  background-image:linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:80px 80px,80px 80px,16px 16px,16px 16px}
+.rpage svg{width:100%;height:auto;overflow:visible}
+.rpage .big{font-family:var(--hand);font-size:clamp(32px,9vw,40px);margin:0;opacity:0;animation:fadeIn .4s 1.5s forwards}
+.rpage .small{font-size:16px;margin:0;opacity:0;animation:fadeIn .4s 1.8s forwards}
+.rpage .small2{font-size:13px;color:var(--pencil);margin:4px 0 0;opacity:0;animation:fadeIn .4s 2.1s forwards}
+.rpage .skip{display:block;font-size:12px;color:var(--pencil);margin-top:6px}
+@keyframes slideIn{from{transform:translateY(40px) rotate(-4deg);opacity:0}to{transform:rotate(-1deg);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ナビ */
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-top:2.5px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav .in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{background:none;border:0;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-size:12px;font-weight:600;color:var(--pencil);position:relative}
+nav button svg{width:24px;height:24px}
+nav button[aria-current="page"]{color:var(--ink)}
+nav button[aria-current="page"] span.lb{background:linear-gradient(transparent 55%,var(--marker) 55%)}
+nav .dot{position:absolute;top:8px;left:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--sheet)}
+body.nonav nav{display:none}
+
+#toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translate(-50%,-8px) rotate(-1deg);background:var(--marker);color:var(--ink);border:2px solid var(--ink);padding:8px 18px;border-radius:var(--wob3);font-size:15px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:60;max-width:calc(100% - 32px);text-align:center;box-shadow:2px 3px 0 var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #toast{background:#3A3420}}
+:root[data-theme="dark"] #toast{background:#3A3420}
+#toast.show{opacity:1;transform:translate(-50%,0) rotate(-1deg)}
+
+/* ===== パソコン・タブレットの横長画面 ===== */
+.ob,.endscr,.focus{width:100%}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover,.chip:hover,.qopt:not(:disabled):hover,.tbtn:hover,.stem:hover,.node>button:hover,.cell:hover,.mstep:hover{filter:brightness(.97)}
+  .btn-primary:hover{box-shadow:4px 5px 0 var(--ink)}
+}
+@media (min-width:900px){
+  nav{top:0;bottom:0;left:0;right:auto;width:184px;border-top:0;border-right:2.5px solid var(--ink);padding:24px 0 env(safe-area-inset-bottom,0px)}
+  nav .in{grid-template-columns:1fr!important;max-width:none;gap:4px}
+  nav button{flex-direction:row;justify-content:flex-start;gap:12px;padding:0 22px;font-size:16px;min-height:54px}
+  nav .dot{top:12px;left:40px}
+  body:not(.nonav) #app{margin-left:184px;max-width:none}
+  #app{max-width:none}
+  #app::before{left:200px}
+  body.nonav #app::before{left:calc(50% - 300px)}
+  main{width:100%;max-width:1040px;margin:0 auto;padding:34px 44px 48px}
+  .screen.narrow{max-width:720px;margin:0 auto;width:100%}
+  .ob,.endscr,.focus{max-width:560px;margin:0 auto}
+  .screen.home{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);grid-template-areas:"top top" "guard step" "desk act" "gauge act" ". act";column-gap:44px;row-gap:22px;align-items:start}
+  .home .topbar{grid-area:top}
+  .home .guardian{grid-area:guard;align-self:center}
+  .home .guardian .art{width:230px;height:230px}
+  .home .desk{grid-area:desk;margin-top:-6px}
+  .home .step{grid-area:step}
+  .home .home-actions{grid-area:act}
+  .home .gauge{grid-area:gauge}
+  .grid{grid-template-columns:repeat(5,1fr)}
+  .rgrid{grid-template-columns:repeat(3,1fr)}
+  .sheet-bg{align-items:center;padding:24px}
+  .sheet{border-radius:22px 26px 24px 20px;border-bottom:2px solid var(--ink);max-width:580px;max-height:88vh;padding-bottom:24px}
+  .lens{width:300px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .drawin{stroke-dashoffset:0}
+  .rpage .big,.rpage .small,.rpage .small2{opacity:1}
+}
+</style>
+</head>
+<body class="nonav">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<filter id="wob1" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="wob2" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="9"/><feDisplacementMap in="SourceGraphic" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="wob3" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="17"/><feDisplacementMap in="SourceGraphic" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="wobS" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="0.25" numOctaves="1" seed="5"/><feDisplacementMap in="SourceGraphic" scale="0.9" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="pencil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.3 1.38" result="a"/><feComposite in="SourceGraphic" in2="a" operator="in" result="g"/><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="1" seed="11" result="w"/><feDisplacementMap in="g" in2="w" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs></svg>
+<div id="app"><main id="main"></main></div>
+<nav aria-label="メイン"><div class="in">
+  <button data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z"/></svg><span class="lb">ホーム</span></button>
+  <button data-tab="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg><span class="lb">マップ</span></button>
+  <button data-tab="plaza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v2l-3-2"/></svg><span class="lb">広場</span></button>
+  <button data-tab="observe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14l11-6 2 4-11 6z"/><path d="M15 8l3-1.5 2 4-3 1.5"/><path d="M9 17l-2 4M11 16l3 5"/></svg><span class="lb">観測</span><span class="dot" id="navDot" hidden></span></button>
+  <button data-tab="zukan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span class="lb">図鑑</span></button>
+</div></nav>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+/* ===== テスト担当者が書き換える設定（ここだけ）===================
+   Google Apps Script で作った「ウェブアプリのURL」と「合言葉」を入れると、
+   「テスト結果を送る」からスプレッドシートに直接届くようになります。
+   空のままなら、これまでどおりコピーや共有で送る形になります。 */
+const RESULT_ENDPOINT='';
+const RESULT_TOKEN='';
+/* ============================================================ */
+
+/* ===== キャラクター ===== */
+const CHARS = [
+  {id:'magma',name:'マグマ漏れ太郎',r:'N',p:24},{id:'fuwa',name:'仮説フワフワン',r:'N',p:22},
+  {id:'hori',name:'データホリホリ獣',r:'R',p:16},{id:'tsun',name:'文献ツンツン竜',r:'R',p:14},
+  {id:'gunya',name:'グラフグニャグニャ',r:'R',p:10},{id:'bayes',name:'ベイズドラゴン',r:'SR',p:5},
+  {id:'meteo',name:'隕石サウルス',r:'SR',p:4},{id:'ida',name:'イーダ始祖鳥',r:'SR',p:2.5},
+  {id:'rex',name:'Impactus Rex',r:'SSR',p:1.2},{id:'cosmo',name:'CosmoNova',r:'SSR',p:0.9},
+  {id:'prism',name:'Anomalo Prism',r:'SSR',p:0.3},{id:'noir',name:'Archaeopteryx Noir',r:'UR',p:0.09},
+  {id:'galaxy',name:'Galaxy Genesis',r:'UR',p:0.01}
+];
+const BYID = Object.fromEntries(CHARS.map(c=>[c.id,c]));
+const STARTER='magma', OBS_COST=8;
+
+/* ===== 基本設定 ===== */
+const MIN_COUNT_SEC=60, MIN_REWARD_SEC=180, DAILY_REWARD_CAP=3, MAX_SESSION_SEC=3*3600;
+const LOGIN_MILESTONE_EVERY=7, LOGIN_NORMAL=1, LOGIN_MILESTONE=3;
+const PITY_STEP=0.25, PITY_MAX=3;
+const POST_MAX=140, STEP_MAX=25, REPLY_MAX=100, POST_INTERVAL_MS=30000;
+
+const STAGES=[
+  {id:'hs',label:'高校生（探究）',short:'高校生'},
+  {id:'ug',label:'大学生（卒業研究）',short:'大学生'},
+  {id:'gr',label:'大学院生（修士・博士）',short:'大学院生'},
+  {id:'ot',label:'その他',short:'その他'}
+];
+const SBY=Object.fromEntries(STAGES.map(s=>[s.id,s]));
+const FIELDS=['地学・宇宙','物理・化学','生物・医療','情報・数理','環境・農','人文・歴史','社会・経済','教育・心理','まだ決めていない'];
+
+/* ② 達成：探究の過程（藤枝2021の学習過程）をスモールステップに分解 */
+const PROCESS=[
+  {id:'notice', phase:'課題の把握', name:'気付き', steps:['気になることを3つメモしよう','身の回りの「なぜ？」を1つメモしよう','気になるニュースを1つ読もう','教科書の図を1つ眺めよう','5分だけ観察してみよう']},
+  {id:'question', phase:'課題の把握', name:'課題の設定', steps:['「なぜ」を調べられる形に直そう','問いの型を1つ使ってみよう','問いを1行で書いてみよう','キーワードを1つ検索しよう','先行研究を1本だけ探そう','先行研究を1ページだけ読もう']},
+  {id:'hypo', phase:'課題の探究', name:'仮説の設定', steps:['「〜を変えると」で予想を書こう','予想を1つだけ書いてみよう','予想の理由を1行書こう','「もし〜なら」を1つ書こう','論文の要旨だけ読もう']},
+  {id:'plan', phase:'課題の探究', name:'検証計画の立案', steps:['測るものを1つ決めよう','必要な道具を1つ書き出そう','手順の最初の1行を書こう','先生に聞きたいことを1つ書こう']},
+  {id:'run', phase:'課題の探究', name:'観察・実験・調査', steps:['研究ノートを開いてみよう','測定を1回だけやってみよう','データのファイルを開こう','コードを1回だけ動かそう']},
+  {id:'result', phase:'課題の探究', name:'結果の処理', steps:['表を1つだけ作ろう','グラフを1つだけ描こう','外れ値を1つ確かめよう','図を1つだけ見直そう']},
+  {id:'discuss', phase:'課題の解決', name:'考察・推論', steps:['結果を1文で言ってみよう','予想と結果を比べよう','先行研究と1点だけ比べよう','「なぜそうなった？」を1つ書こう']},
+  {id:'express', phase:'課題の解決', name:'表現・伝達', steps:['スライドを1枚だけ作ろう','要旨の1文目を書こう','誰かに1分で話してみよう','原稿の1段落を読み返そう']}
+];
+const PBY=Object.fromEntries(PROCESS.map(p=>[p.id,p]));
+const DEFAULT_PROC='question';
+const RETURN_STEP='今日は5分だけ戻ってみよう';
+const LINES=['今日はこれだけでいい。','一歩だけ、見てみよう。','5分でも、戻れたら十分。','完璧じゃなくて大丈夫。','開くだけでも、一歩だよ。'];
+const TAP_LINES=['ふわっ。','押してくれてありがとう。','一緒に一歩だけ。','次の反応、楽しみだね。','研究ノート、開いてみる？','ちょっとだけ、ね。'];
+
+/* ⑤ 成長：活性化エネルギーを越えると化学反応が起きる */
+const REACTIONS=[
+  {type:'flame',  color:'#E8394A', label:'炎色反応：リチウム（赤）', fact:'炎に入れると濃い赤に。電池にも使われる軽い金属。'},
+  {type:'explode',color:'#FFC94A', label:'爆発：水素と酸素', fact:'水素と酸素が反応して水ができる。ポンと音がする。'},
+  {type:'flame',  color:'#F2B705', label:'炎色反応：ナトリウム（黄）', fact:'みそ汁がふきこぼれると火が黄色くなるのはこれ。'},
+  {type:'volcano',color:'#F2652E', label:'火山噴火', fact:'たまったマグマの圧力が限界を越えると噴き出す。'},
+  {type:'flame',  color:'#A35BD9', label:'炎色反応：カリウム（赤紫）', fact:'淡い赤紫。ナトリウムの黄色に隠れやすい。'},
+  {type:'flame',  color:'#1FB59A', label:'炎色反応：銅（青緑）', fact:'青緑の炎。花火の緑や青に使われる。'},
+  {type:'explode',color:'#FF9A3C', label:'爆発：テルミット反応', fact:'アルミニウムが酸化鉄から酸素をうばい、鉄が溶け出す。'},
+  {type:'flame',  color:'#D21F3C', label:'炎色反応：ストロンチウム（深紅）', fact:'深い紅色。赤い花火の主役。'},
+  {type:'flame',  color:'#8CC63F', label:'炎色反応：バリウム（黄緑）', fact:'黄緑色の炎。緑の花火に使われる。'},
+  {type:'flame',  color:'#F07A2A', label:'炎色反応：カルシウム（橙赤）', fact:'橙赤色の炎。石灰や貝がらに含まれる元素。'}
+];
+const reactionFor=lv=>REACTIONS[(lv-2+REACTIONS.length*100)%REACTIONS.length];
+const eaFor=lv=>4+2*lv;   // Lv→Lv+1 に必要な活性化エネルギー
+function levelInfo(total){ let lv=1,base=0; while(total>=base+eaFor(lv)){ base+=eaFor(lv); lv++; } const need=eaFor(lv); return {lv,into:total-base,need,frac:(total-base)/need}; }
+
+/* ===== 保存（端末＋サインイン時はクラウドにも同期） ===== */
+const TEST_BUILD=true;   // 化学部テスト版では true（広場なし・テスト結果の書き出しあり）
+const KEY=TEST_BUILD?'kfw-chemtest-v1':'kenkyu-fuwafuwa-alpha-v2';
+const fresh=()=>({
+  v:2, profile:null, selectedCharacterId:STARTER, ownedCharacterIds:[STARTER],
+  observationEnergy:0, totalEnergy:0, observationCount:0, researchSessionCount:0, notebookConfirmationCount:0,
+  sessions:[], footprints:{}, procStage:DEFAULT_PROC, custom:null,
+  lastLoginDate:null, loginDays:0, lastResearchDate:null, charObs:{}, dupStreak:0, hidden:[],
+  daily:{date:null,sessionRewards:0,noteRewards:0,stepShift:0}, running:null, ending:null, updatedAt:0,
+  settings:{sound:false,vibe:true}, qeye:{rounds:0,correct:0,date:null}, testCode:null, metrics:{firstUse:null,swaps:0,mapPicks:0,hereSets:0,taps:0,resumes:0,later:0,recovers:0,levelUps:0,exports:0}
+});
+let S=fresh();
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY) || (TEST_BUILD?null:localStorage.getItem('kenkyu-fuwafuwa-alpha-v1'));
+    if(raw){ const o=JSON.parse(raw); S=Object.assign(fresh(),o); S.metrics=Object.assign(fresh().metrics,o.metrics||{}); S.settings=Object.assign(fresh().settings,o.settings||{}); }
+  }catch(e){ S=fresh(); }
+}
+function save(){
+  S.updatedAt=Date.now();
+  try{ localStorage.setItem(KEY,JSON.stringify(S)); }
+  catch(e){ toast('記録の保存に失敗しました。研究はそのまま続けられます。',2600); }
+  scheduleSync();
+}
+
+/* ===== ユーティリティ ===== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function today(d=new Date()){ const z=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`; }
+function dayNum(k){ const [y,m,d]=k.split('-').map(Number); return Math.floor(Date.UTC(y,m-1,d)/86400000); }
+function fmt(sec){ sec=Math.max(0,Math.floor(sec)); const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60,z=n=>String(n).padStart(2,'0'); return h?`${h}:${z(m)}:${z(s)}`:`${z(m)}:${z(s)}`; }
+function fmtMin(sec){ const m=Math.round(sec/60); return m<1?'1分足らず':(m>=60?`${Math.floor(m/60)}時間${m%60?m%60+'分':''}`:`${m}分`); }
+function ago(t){ const s=(Date.now()-t)/1000; if(s<60) return 'いま'; if(s<3600) return Math.floor(s/60)+'分前'; if(s<86400) return Math.floor(s/3600)+'時間前'; return Math.floor(s/86400)+'日前'; }
+function rollDaily(){ const t=today(); if(S.daily.date!==t) S.daily={date:t,sessionRewards:0,noteRewards:0,stepShift:0}; }
+function rand(){ try{ return crypto.getRandomValues(new Uint32Array(1))[0]/4294967296; }catch(e){ return Math.random(); } }
+const reduceMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+let toastTimer;
+function toast(msg,ms=1300){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),ms); }
+function makeCode(){ const A='ACDEFGHJKMNPQRTUVWXY34679'; let c='KF-'; for(let i=0;i<4;i++) c+=A[Math.floor(rand()*A.length)]; return c; }
+function bump(k){ S.metrics[k]=(S.metrics[k]||0)+1; }
+function toggleInterest(list,f){ if(f==='まだ決めていない') return list.includes(f)?[]:[f]; const l=list.filter(x=>x!=='まだ決めていない'); return l.includes(f)?l.filter(x=>x!==f):[...l,f]; }
+
+/* ===== キャラクター描画（オリジナルSVG） ===== */
+let uid=0;
+const INK='#1D1B2B';
+function eyes(x1,x2,y,s=1){ const e=x=>`<circle cx="${x}" cy="${y}" r="${5.5*s}" fill="#fff"/><circle cx="${x+1}" cy="${y+1}" r="${3.1*s}" fill="${INK}"/><circle cx="${x+2}" cy="${y-.5}" r="${1.1*s}" fill="#fff"/>`; return e(x1)+e(x2); }
+function blush(x1,x2,y){ return `<ellipse cx="${x1}" cy="${y}" rx="5" ry="3" fill="#FF8FA3" opacity=".55"/><ellipse cx="${x2}" cy="${y}" rx="5" ry="3" fill="#FF8FA3" opacity=".55"/>`; }
+function smile(x,y){ return `<path d="M${x-5} ${y} Q${x} ${y+5} ${x+5} ${y}" stroke="${INK}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`; }
+function dino(b,belly,o={}){
+  return `${o.back||''}<path d="M90 78 Q110 80 116 64 Q113 95 86 95Z" fill="${b}"/>${o.spikes||''}<ellipse cx="66" cy="80" rx="30" ry="22" fill="${b}"/><rect x="50" y="92" width="10" height="14" rx="5" fill="${b}"/><rect x="74" y="92" width="10" height="14" rx="5" fill="${b}"/><ellipse cx="68" cy="86" rx="17" ry="11" fill="${belly}"/>${o.head||''}<circle cx="42" cy="54" r="23" fill="${b}"/>${o.face||''}${eyes(34,50,52)}${blush(29,56,62)}${smile(42,64)}${o.front||''}`;
+}
+function bird(b,w,acc,o={}){
+  return `<path d="M80 76 L114 64 L108 78 L114 93 L80 88Z" fill="${acc}"/>${o.crest||''}<ellipse cx="60" cy="74" rx="30" ry="27" fill="${b}"/><path d="M56 70 Q88 54 97 86 Q74 91 56 70Z" fill="${w}"/>${o.extra||''}<path d="M31 63 L15 68 L31 74Z" fill="#F2B544"/><rect x="50" y="98" width="4" height="11" rx="2" fill="#F2B544"/><rect x="64" y="98" width="4" height="11" rx="2" fill="#F2B544"/>${eyes(41,55,62)}${blush(37,59,72)}`;
+}
+const tri=(x,y,w,h,c)=>`<path d="M${x-w/2} ${y} L${x} ${y-h} L${x+w/2} ${y}Z" fill="${c}"/>`;
+function artBody(id){
+  const u = 'g'+(++uid);
+  switch(id){
+    case 'magma': return `<path d="M22 94 Q16 50 60 40 Q104 50 98 94 Q60 106 22 94Z" fill="#E8603C"/><path d="M34 52 Q60 32 86 52 L84 60 Q80 70 77 59 Q71 66 67 57 Q61 74 55 57 Q49 66 45 57 Q40 68 36 58Z" fill="#FFB23F"/><ellipse cx="60" cy="88" rx="22" ry="9" fill="#F48A5E"/>${eyes(48,72,72)}${blush(42,78,82)}${smile(60,82)}`;
+    case 'fuwa': return `<g fill="#CEC7F4"><circle cx="38" cy="74" r="21"/><circle cx="60" cy="60" r="26"/><circle cx="83" cy="74" r="21"/><ellipse cx="60" cy="88" rx="38" ry="16"/></g><g fill="#E6E1FB"><circle cx="52" cy="50" r="9"/><circle cx="30" cy="70" r="6"/></g><text x="92" y="34" text-anchor="middle" font-size="24" font-weight="900" fill="#7D70DA" font-family="sans-serif">?</text>${eyes(50,70,72)}${blush(42,78,82)}${smile(60,82)}`;
+    case 'hori': return `<text x="22" y="28" font-size="12" fill="#B08D6E" font-family="monospace">0 1 1</text><text x="80" y="22" font-size="11" fill="#B08D6E" font-family="monospace">1 0</text><ellipse cx="60" cy="74" rx="38" ry="32" fill="#8A6A4F"/><ellipse cx="60" cy="84" rx="24" ry="18" fill="#C9A98A"/><g fill="#F3EDE6"><path d="M18 88 l-6 6 m6-6 l-2 8 m2-8 l4 7" stroke="#F3EDE6" stroke-width="3" stroke-linecap="round"/><path d="M102 88 l6 6 m-6-6 l2 8 m-2-8 l-4 7" stroke="#F3EDE6" stroke-width="3" stroke-linecap="round"/></g>${eyes(48,72,62,.8)}<ellipse cx="60" cy="72" rx="6" ry="4.5" fill="#FF8FA3"/>${smile(60,78)}`;
+    case 'tsun': return dino('#5DAE6B','#CDE8C6',{spikes:tri(58,62,10,12,'#3E8A4C')+tri(70,60,10,12,'#3E8A4C')+tri(82,64,10,12,'#3E8A4C'),head:tri(30,38,10,12,'#3E8A4C')+tri(42,33,10,12,'#3E8A4C')+tri(54,38,10,12,'#3E8A4C'),front:`<g transform="rotate(-8 70 84)"><rect x="56" y="74" width="30" height="20" rx="2" fill="#F4E3B5"/><path d="M71 74 V94" stroke="#B9944E" stroke-width="2"/><path d="M60 80h8M60 85h8M74 80h8M74 85h8" stroke="#B9944E" stroke-width="1.5"/></g>`});
+    case 'gunya': return `<path d="M16 92 Q32 58 48 82 T80 78 T100 56" stroke="#3BB3A4" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M16 92 Q32 58 48 82 T80 78 T100 56" stroke="#BFF0E8" stroke-width="2.5" fill="none" stroke-dasharray="4 5"/><circle cx="100" cy="48" r="18" fill="#3BB3A4"/><circle cx="20" cy="94" r="3" fill="#E9F9F6"/><circle cx="48" cy="82" r="3" fill="#E9F9F6"/><circle cx="80" cy="78" r="3" fill="#E9F9F6"/>${eyes(93,107,46,.8)}${smile(100,55)}`;
+    case 'bayes': return dino('#4C7BD9','#BFD3FA',{back:`<path d="M60 64 Q66 18 104 26 Q92 40 100 52 Q82 50 76 68Z" fill="#8EAEF0"/><path d="M66 60 Q76 32 98 30" stroke="#4C7BD9" stroke-width="2" fill="none"/>`,head:`<path d="M30 36 L24 20 L38 32Z M52 34 L58 18 L46 31Z" fill="#E7D58A"/>`,front:`<text x="68" y="91" text-anchor="middle" font-size="11" font-weight="900" fill="#4C7BD9" font-family="serif">P(H|D)</text>`});
+    case 'meteo': return dino('#7D6E96','#CEC5DC',{spikes:`<path d="M52 62 l8-12 l9 6 l-3 8Z" fill="#5A4E6E"/><path d="M70 60 l10-10 l8 9 l-6 6Z" fill="#5A4E6E"/><path d="M86 68 l9-6 l5 9 l-8 3Z" fill="#5A4E6E"/>`,face:`<circle cx="30" cy="40" r="3" fill="#6A5D82"/><circle cx="52" cy="38" r="2.4" fill="#6A5D82"/>`,front:`<path d="M96 22 l-10 10" stroke="#FFB867" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="18" r="6" fill="#FFB867"/>`});
+    case 'ida': return bird('#3FA7A0','#2B7F79','#7FD1C9',{crest:`<path d="M48 50 Q44 30 56 26 Q54 38 62 44Z" fill="#2B7F79"/>`});
+    case 'rex': return `<defs><radialGradient id="${u}"><stop offset="0" stop-color="#FFF2B0"/><stop offset=".55" stop-color="#FFC35A"/><stop offset="1" stop-color="#FFC35A" stop-opacity="0"/></radialGradient></defs>`+dino('#C9384A','#F4B7A8',{spikes:tri(56,62,12,14,'#8E2233')+tri(70,59,12,15,'#8E2233')+tri(84,63,12,14,'#8E2233'),head:`<path d="M24 46 Q14 40 18 32 Q28 36 30 42Z" fill="#8E2233"/>`,front:`<circle cx="68" cy="86" r="11" fill="url(#${u})"/><circle cx="68" cy="86" r="5" fill="#FFF6D6"/><path d="M36 66 l3 4 l3-4 l3 4" stroke="#fff" stroke-width="1.6" fill="none"/>`});
+    case 'cosmo': return `<defs><linearGradient id="${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6B7CFF"/><stop offset="1" stop-color="#B26BF2"/></linearGradient></defs><path d="M60 10 L73 44 L110 46 L81 68 L91 104 L60 84 L29 104 L39 68 L10 46 L47 44Z" fill="url(#${u})" stroke="#E2DDFF" stroke-width="2" stroke-linejoin="round"/><g fill="#FFF3B0"><path d="M14 18 l2 5 5 2 -5 2 -2 5 -2-5 -5-2 5-2Z"/><path d="M104 18 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5-4 -4-1.5 4-1.5Z"/><circle cx="100" cy="100" r="2"/></g>${eyes(51,69,60)}${blush(45,75,70)}${smile(60,70)}`;
+    case 'prism': return `<path d="M60 8 L102 54 L60 112 L18 54Z" fill="#DDE8FF"/><path d="M60 8 L60 54 L18 54Z" fill="#FFD6EC"/><path d="M60 8 L102 54 L60 54Z" fill="#D2F4FF"/><path d="M18 54 L60 54 L60 112Z" fill="#E6FFD9"/><path d="M102 54 L60 54 L60 112Z" fill="#FFF0C8"/><path d="M60 8 L102 54 L60 112 L18 54Z" fill="none" stroke="#8D8FC9" stroke-width="2" stroke-linejoin="round"/><path d="M104 40 L118 34 M106 50 L120 50 M104 60 L118 66" stroke-width="3" stroke-linecap="round" stroke="#FF8FC9"/><path d="M106 50 L120 50" stroke="#7FD6FF" stroke-width="3" stroke-linecap="round"/>${eyes(51,69,58)}${smile(60,70)}`;
+    case 'noir': return bird('#2E2B38','#423E52','#C9A44A',{crest:`<path d="M46 50 Q38 26 52 22 Q52 36 62 44Z" fill="#C9A44A"/>`,extra:`<path d="M60 72 Q86 60 94 84" stroke="#C9A44A" stroke-width="2.5" fill="none"/><path d="M66 80 Q82 74 88 86" stroke="#C9A44A" stroke-width="1.6" fill="none"/>`});
+    case 'galaxy': return `<defs><radialGradient id="${u}" cx=".45" cy=".4"><stop offset="0" stop-color="#FFC6F0"/><stop offset=".45" stop-color="#7A5CE6"/><stop offset="1" stop-color="#22206B"/></radialGradient></defs><circle cx="60" cy="62" r="44" fill="url(#${u})"/><path d="M60 62 m0-6 a6 6 0 1 1 -6 6 a12 12 0 1 1 12 12 a20 20 0 1 1 -20 -20 a30 30 0 1 1 30 30" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/><g fill="#fff"><circle cx="30" cy="40" r="1.6"/><circle cx="88" cy="36" r="2"/><circle cx="92" cy="84" r="1.4"/><circle cx="34" cy="88" r="1.8"/></g><path d="M102 14 l2 6 6 2 -6 2 -2 6 -2-6 -6-2 6-2Z" fill="#FFE9A8"/>${eyes(50,70,60)}${blush(44,76,70)}${smile(60,71)}`;
+  }
+  return '';
+}
+function svgArt(id, cls=''){ return `<svg class="art ${cls}" viewBox="0 0 120 120" role="img" aria-label="${cls.includes('sil')?'未確認の生命体':esc(BYID[id].name)}">${artBody(id)}</svg>`; }
+
+
+
+/* ===== 落書き化エンジン：もとの図形から「ペンの輪郭・色鉛筆のぬり・細い線・目や口」を作る ===== */
+const SVGNS='http://www.w3.org/2000/svg';
+const DOODLE={};
+const isWhiteF=f=>/^#(fff|ffffff)$/i.test(f||'');
+function effFill(el){ let n=el; while(n&&n.getAttribute){ const f=n.getAttribute('fill'); if(f!=null) return f; n=n.parentNode; } return '#000'; }
+function kindOf(el){
+  const tag=el.tagName.toLowerCase();
+  if(tag==='text') return 'text';
+  const f=effFill(el), st=el.getAttribute('stroke'), sw=parseFloat(el.getAttribute('stroke-width')||'1');
+  if((f==='none'||!f)&&st) return sw>=8?'thick':'stroke';
+  if(/^#1d1b2b$/i.test(f)) return 'pupil';
+  if(isWhiteF(f)&&tag==='circle'&&parseFloat(el.getAttribute('r')||'9')<=1.6) return 'hi';
+  if(/^#ff8fa3$/i.test(f)) return 'blush';
+  return 'body';
+}
+function layer(root,mode){
+  const c=root.cloneNode(true);
+  [...c.querySelectorAll('path,circle,ellipse,rect,polygon,text')].forEach(el=>{
+    const k=kindOf(el), sw=parseFloat(el.getAttribute('stroke-width')||'1');
+    const drop=()=>el.remove();
+    if(mode==='sil'){
+      if(k==='body'){ el.setAttribute('stroke-width','5'); el.setAttribute('stroke-linejoin','round'); el.removeAttribute('opacity'); el.style.fill='var(--sheet)'; el.style.stroke='var(--cink)'; }
+      else if(k==='thick'){ el.setAttribute('stroke-width',String(sw+5)); el.style.stroke='var(--cink)'; el.removeAttribute('stroke-dasharray'); }
+      else drop();
+    }else if(mode==='fill'){
+      if(k==='body'||k==='blush'){ el.removeAttribute('stroke'); }
+      else if(k!=='thick') drop();
+    }else if(mode==='line'){
+      if(k==='body'){ el.setAttribute('fill','none'); el.style.fill='none'; el.style.stroke='var(--cink)'; el.setAttribute('stroke-width','1.3'); el.setAttribute('stroke-linejoin','round'); }
+      else drop();
+    }else if(mode==='det'){
+      if(k==='body'||k==='thick'||k==='blush') drop();
+    }else if(mode==='sketch'){
+      if(k==='body'||k==='thick'){ el.setAttribute('fill','none'); el.style.fill='none'; el.style.stroke='var(--cink)'; el.setAttribute('stroke-width',k==='thick'?'2':'1.6'); el.setAttribute('stroke-dasharray','5 4'); el.setAttribute('stroke-linecap','round'); }
+      else drop();
+    }
+  });
+  c.querySelectorAll('defs').forEach(d=>d.remove());
+  return c.innerHTML;
+}
+function doodleParts(id){
+  if(DOODLE[id]) return DOODLE[id];
+  const root=document.createElementNS(SVGNS,'svg'); root.innerHTML=artBody(id);
+  const defs=[...root.querySelectorAll('defs')].map(d=>d.outerHTML).join('');
+  const p={defs,sil:layer(root,'sil'),fill:layer(root,'fill'),line:layer(root,'line'),det:layer(root,'det'),sketch:layer(root,'sketch')};
+  return (DOODLE[id]=p);
+}
+function art(id,cls=''){
+  const d=doodleParts(id), mini=cls.includes('mini');
+  if(cls.includes('sil')) return `<svg class="art ${cls}" viewBox="-8 -8 136 136" role="img" aria-label="まだ描かれていない生命体"><g ${mini?'':'filter="url(#wob1)"'} opacity=".55">${d.sketch}</g></svg>`;
+  return `<svg class="art ${cls}" viewBox="-8 -8 136 136" role="img" aria-label="${esc(BYID[id].name)}">${d.defs}`+
+    `<g class="lay-sil" ${mini?'':'filter="url(#wob1)"'}>${d.sil}</g>`+
+    `<g class="lay-fill" transform="translate(1.6 1.3)" ${mini?'':'filter="url(#pencil)"'}>${d.fill}</g>`+
+    `<g class="lay-line" ${mini?'':'filter="url(#wob1)"'} opacity=".5">${d.line}</g>`+
+    `<g class="lay-det">${d.det}</g></svg>`;
+}
+/* 線がふるえる（手描きアニメの「ボイル」） */
+let boilT=null;
+function startBoil(svg){
+  clearInterval(boilT); if(!svg||reduceMotion()) return;
+  let i=0; boilT=setInterval(()=>{ if(!document.body.contains(svg)){ clearInterval(boilT); return; }
+    i=(i+1)%3; svg.querySelectorAll('.lay-sil,.lay-line').forEach(g=>g.setAttribute('filter',`url(#wob${i+1})`)); },170);
+}
+
+/* ===== 生態メモ（同じ生命体を観測するたびに1行ずつ解放） ===== */
+const MEMO_T=[1,2,3,5];
+const MEMO={
+  magma:['頭のマグマは、考えごとをすると少し漏れる。','締切が近いと温度が上がる。本人は気づいていない。','冷えて固まったところは、意外といいアイデアの形をしている。','毎日5分だけ噴火するのが、いちばん調子がいい。'],
+  fuwa:['ふわふわしているのは、まだ検証されていないから。','データを見せると、少しだけ縮む。','縮んでも消えない。形を変えて次の仮説になる。','いちばん好きなことばは「もし〜なら」。'],
+  hori:['土の中から0と1を掘り出して暮らしている。','外れ値を見つけると、うれしくて穴を3つ掘る。','掘りすぎて迷子になるので、ときどき地上で図を描く。','「とりあえず全部集める」は、だいたい後悔するらしい。'],
+  tsun:['背中のトゲは、読みかけの論文の数だけ生える。','要旨だけ読むと、トゲが1本ぬける。','引用文献をたどるのが得意。ただし帰り道を忘れる。','本当は、図だけ先に見るのが好き。'],
+  gunya:['体の形は、その日に描いたグラフで変わる。','軸のラベルがないと、不安でぐにゃぐにゃする。','誤差棒をつけると、少し背すじが伸びる。','まっすぐな直線に、少しあこがれている。'],
+  bayes:['新しいデータを食べるたびに、信じる度合いを少し変える。','思いこみが強いと、飛ぶ向きがずれる。','翼の大きさは、集めた証拠の量で決まる。','「たぶん」を大事にする、まじめな竜。'],
+  meteo:['背中の岩は、空から落ちてきた疑問のかけら。','突然ひらめくのは、隕石がぶつかったからだと言われている。','大きな問いが落ちてくると、しばらく動けなくなる。','小さなかけらから調べると、意外と早く進む。'],
+  ida:['化石の中から、昔の研究ノートを見つけて読んでいる。','羽ばたくたびに、過去の記録が1ページめくれる。','記録を残す人のところに、よく飛んでくる。','自分のノートも、いつか誰かの化石になると信じている。'],
+  rex:['おなかのクレーターは、大発見のあと。','発見の瞬間は、たいてい地味な作業のあとに来る。','声は大きいが、実験はとても丁寧。','失敗した実験の数を、ひそかに誇りにしている。'],
+  cosmo:['夜空の星を、ひとつずつ数えて記録している。','光っているのは、先人の研究の反射らしい。','たまに爆発して、新しい星（問い）を生む。','見上げる人がいる限り、消えないそうだ。'],
+  prism:['予想外のデータを受けると、七色に光る。','「うまくいかなかった結果」が、いちばんの好物。','異常値をすぐ捨てる人の前には、現れない。','その光の中に、次の研究テーマが隠れている。'],
+  noir:['夜にだけ現れる。締切前夜によく目撃される。','金の羽は、最後まで書き上げた論文の数。','静かな研究室が好きで、通知の音が苦手。','見た人は、なぜか翌朝ノートを開きたくなる。'],
+  galaxy:['すべての問いは、ここから生まれたという説がある。','観測できた人はほとんどいない。記録も少ない。','小さな一歩を積み重ねた人のところに、現れるらしい。','この記録を読んでいるあなたも、もう研究者だ。']
+};
+function obsOf(id){ return Math.max(S.charObs[id]||0, S.ownedCharacterIds.includes(id)?1:0); }
+function memoCount(id){ const o=obsOf(id); return MEMO_T.filter(t=>o>=t).length; }
+
+/* ===== 机の上の道具（反応Lvが上がるたびに1つ増える） ===== */
+const DESK=[
+  {n:'ビーカー',s:'<path d="M5.5 5h13M7 5v13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V5"/><path d="M7.6 13h8.8v5a1.4 1.4 0 0 1-1.4 1.4H9A1.4 1.4 0 0 1 7.6 18z" fill="#7FC8F0" stroke="none"/>'},
+  {n:'試験管',s:'<path d="M9.5 3h6M11 3v14a1.75 1.75 0 0 0 3.5 0V3"/><path d="M11.3 11h2.9v6a1.45 1.45 0 0 1-2.9 0z" fill="#F07FA8" stroke="none"/>'},
+  {n:'三角フラスコ',s:'<path d="M9.5 3h5M10.5 3v6L5 19a1.3 1.3 0 0 0 1.2 1.8h11.6A1.3 1.3 0 0 0 19 19l-5.5-10V3"/><path d="M7.4 15h9.2l1.6 3.4a1 1 0 0 1-.9 1.4H6.7a1 1 0 0 1-.9-1.4z" fill="#9BE07A" stroke="none"/>'},
+  {n:'アルコールランプ',s:'<path d="M12 9c-2.2-2-.2-4.5 0-6.5 1.6 2 3 4.3 0 6.5z" fill="#FFB23F"/><path d="M11 13V10h2v3"/><path d="M5.5 20.5h13l-1.8-7.5H7.3z" fill="#DCE6F5"/>'},
+  {n:'ルーペ',s:'<circle cx="10" cy="10" r="4.6" fill="#CDE7FF" stroke="none"/><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5L20 20" stroke-width="3"/>'},
+  {n:'顕微鏡',s:'<path d="M5 21h14M8 21v-2h8v2M14 19c3.5-2 3.5-7.5-1-9.5"/><path d="M8.5 3.5l4 2-3 7-4-2z" fill="#B9C3E0"/><path d="M7.5 15h6"/>'},
+  {n:'方位磁針',s:'<circle cx="12" cy="12" r="8.5" fill="#FFF6D8"/><path d="M12 5.5l2 6.5h-4z" fill="#E8603C"/><path d="M12 18.5l2-6.5h-4z" fill="#DCE6F5"/>'},
+  {n:'岩石標本',s:'<path d="M4 17l3-7 5-3 6 3 2 7-6 3z" fill="#C9B9A2"/><path d="M7 10l4 3 7-3M11 13l1 7"/>'},
+  {n:'地球儀',s:'<circle cx="12" cy="10" r="6.5" fill="#8FD0C0"/><path d="M5.5 10h13M12 3.5c-3 3-3 10 0 13M12 3.5c3 3 3 10 0 13"/><path d="M12 16.5v3M8 21h8"/>'},
+  {n:'望遠鏡',s:'<path d="M3.5 12.5l12-6.5 2.2 4.2-12 6.5z" fill="#C9C3F4"/><path d="M10 15l-3 6.5M11 15l3 6.5M10.5 15v6.5"/>'}
+];
+function deskHTML(lv){
+  const items=DESK.slice(0,Math.max(0,Math.min(DESK.length,lv-1)));
+  if(!items.length) return '';
+  return `<div class="desk" role="img" aria-label="机の上の道具：${items.map(d=>d.n).join('、')}">${items.map(d=>`<span class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#wobS)">${d.s}</svg></span>`).join('')}</div>`;
+}
+
+/* ===== 効果音（WebAudioで合成。初期設定は音なし）と振動 ===== */
+const SFX={ctx:null,
+  on(){ return !!(S.settings&&S.settings.sound); },
+  c(){ if(!this.ctx){ try{ this.ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; } } if(this.ctx.state==='suspended') this.ctx.resume(); return this.ctx; },
+  tone(f,dur,o={}){ const c=this.c(); if(!c) return; const t=c.currentTime+(o.at||0), os=c.createOscillator(), g=c.createGain();
+    os.type=o.type||'sine'; os.frequency.setValueAtTime(f,t); if(o.to) os.frequency.exponentialRampToValueAtTime(o.to,t+dur);
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(o.vol||0.1,t+0.012); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    os.connect(g).connect(c.destination); os.start(t); os.stop(t+dur+0.03); },
+  noise(dur,o={}){ const c=this.c(); if(!c) return; const t=c.currentTime+(o.at||0), n=Math.floor(c.sampleRate*dur), b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+    for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*(o.grain?((i>>9)%3?0.35:1):1);
+    const s=c.createBufferSource(), f=c.createBiquadFilter(), g=c.createGain(); s.buffer=b; f.type=o.lp?'lowpass':'highpass'; f.frequency.value=o.freq||2400;
+    g.gain.setValueAtTime(o.vol||0.05,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur); s.connect(f).connect(g).connect(c.destination); s.start(t); },
+  play(n,a){
+    if(!this.on()) return;
+    if(n==='tap') this.tone(540,.1,{type:'triangle',to:860,vol:.09});
+    else if(n==='gain'){ this.tone(880,.09,{vol:.07}); this.tone(1320,.12,{at:.08,vol:.07}); }
+    else if(n==='write') this.noise(.32,{vol:.045,grain:true,freq:3000});
+    else if(n==='scan') this.tone(260,.8,{to:520,vol:.035});
+    else if(n==='reveal'){ const L={N:3,R:4,SR:5,SSR:6,UR:8}[a]||3, sc=[523,659,784,1047,1319,1568,2093,2637];
+      for(let i=0;i<L;i++) this.tone(sc[i],.32,{type:'triangle',at:i*.07,vol:.07}); if(L>=6) this.noise(.5,{at:L*.07,vol:.025,freq:6000}); }
+    else if(n==='level'){ this.tone(180,.9,{type:'sawtooth',to:820,vol:.025}); this.noise(.25,{at:.95,vol:a==='explode'?.12:.05,lp:a==='explode'||a==='volcano',freq:a==='explode'?900:5000});
+      [784,988,1175,1568].forEach((f,i)=>this.tone(f,.4,{type:'triangle',at:1+i*.06,vol:.06})); }
+  }
+};
+function hap(p){ try{ if(S.settings&&S.settings.vibe&&navigator.vibrate) navigator.vibrate(p); }catch(e){} }
+
+/* ===== 今日の一歩 ===== */
+function isReturning(){ const t=today(); if(!S.lastResearchDate||S.lastResearchDate===t) return false; return dayNum(t)-dayNum(S.lastResearchDate)>=3; }
+function todayStep(){
+  rollDaily();
+  if(S.custom && S.custom.date===today()) return {text:S.custom.text, proc:S.custom.proc||S.procStage, from:S.custom.from};
+  const p=PBY[S.procStage]||PBY[DEFAULT_PROC];
+  if(isReturning() && S.daily.stepShift===0) return {text:RETURN_STEP, proc:p.id};
+  return {text:p.steps[(dayNum(today())+S.daily.stepShift)%p.steps.length], proc:p.id};
+}
+function setCustomStep(text,proc,from){ S.custom={text,proc:proc||S.procStage,date:today(),from:from||''}; save(); }
+
+/* ===== 画面 ===== */
+let view='home', tick=null, busy=false, pendingFx=null;
+const main=$('#main');
+const BASE_TITLE=document.title;
+function setChrome(nav,focus){
+  if(!focus) document.title=BASE_TITLE;
+  document.body.classList.toggle('nonav',!nav);
+  document.body.classList.toggle('focusing',!!focus);
+  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===view?'page':'false'));
+  $('#navDot').hidden=S.observationEnergy<OBS_COST;
+}
+function go(v){ view=v; clearInterval(tick); tick=null; render(); window.scrollTo(0,0); }
+function render(){
+  if(!S.profile) return renderOnboarding();
+  if(S.ending) return renderEnd();
+  if(S.running) return view==='recover'?renderRecover():renderFocus();
+  ({home:renderHome,map:renderMap,plaza:TEST_BUILD?renderHome:renderPlaza,observe:renderObserve,zukan:renderZukan}[view]||renderHome)();
+}
+
+/* ----- 初回設定 ----- */
+let ob={name:'',stage:null,interests:[],step:1};
+function renderOnboarding(){
+  setChrome(false);
+  if(ob.step===2){
+    main.innerHTML=`<section class="screen ob" style="justify-content:center;text-align:center;align-items:center;min-height:calc(100vh - 80px);gap:12px">
+      <div style="width:190px;height:190px" id="obArt">${art(STARTER)}</div>
+      <h1>最初の仲間が来ました</h1>
+      <p class="lead">研究に戻るたびにエネルギーがたまり、<br>山を越えると化学反応が起きます。</p>
+      <p class="note">はじめての観測エネルギー（${OBS_COST}）をもらいました。<br>レンズの先に、何が描かれているでしょう？</p>
+      ${TEST_BUILD?`<p class="note" style="text-align:left">テスト参加コード：<b>${esc(S.testCode)}</b><br>iPhoneの方は、共有ボタンから「ホーム画面に追加」をしてから使ってください。記録が消えにくくなります。</p>`:''}
+      <button class="btn btn-primary" id="obObs">はじめての観測をする</button>
+      <button class="btn btn-quiet" id="obGo">あとで。今日の一歩を見る</button></section>`;
+    startBoil($('#obArt svg'));
+    $('#obObs').onclick=()=>{ SFX.play('tap'); go('observe'); };
+    $('#obGo').onclick=()=>{ go('home'); toast('エネルギー +1',700); };
+    return;
+  }
+  main.innerHTML=`<section class="screen ob">
+    <div><h1>研究に、少しだけ戻る場所。</h1><p class="lead">3つ選ぶだけで始められます。</p></div>
+    <div class="field"><label for="nm">${TEST_BUILD?'呼び名（この端末の中だけで使います）':'呼び名（広場でも表示されます）'}</label><input id="nm" maxlength="16" autocomplete="nickname" placeholder="ニックネームでOK（実名は避けてください）" value="${esc(ob.name)}"></div>
+    <div class="field"><span class="lbl" id="stL">いまの段階</span><div class="chips" role="group" aria-labelledby="stL">${STAGES.map(s=>`<button class="chip" data-st="${s.id}" aria-pressed="${ob.stage===s.id}">${s.label}</button>`).join('')}</div></div>
+    <div class="field"><span class="lbl" id="fdL">興味のある分野（いくつでも）</span><div class="chips" role="group" aria-labelledby="fdL">${FIELDS.map(f=>`<button class="chip" data-fd="${f}" aria-pressed="${ob.interests.includes(f)}">${f}</button>`).join('')}</div></div>
+    <button class="btn btn-primary" id="obNext" ${ob.name.trim()&&ob.stage?'':'disabled'}>はじめる</button>
+    <p class="note">このアプリは研究内容を保存しません。研究内容・実験結果・考察などは、所属先のルールに従って正式な研究ノートに記録してください。</p></section>`;
+  const nm=$('#nm'),next=$('#obNext'),upd=()=>{ next.disabled=!(ob.name.trim()&&ob.stage); };
+  nm.oninput=()=>{ ob.name=nm.value; upd(); };
+  main.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{ ob.stage=b.dataset.st; main.querySelectorAll('[data-st]').forEach(x=>x.setAttribute('aria-pressed',x===b)); upd(); });
+  main.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{ ob.interests=toggleInterest(ob.interests,b.dataset.fd); main.querySelectorAll('[data-fd]').forEach(x=>x.setAttribute('aria-pressed',ob.interests.includes(x.dataset.fd))); });
+  next.onclick=()=>{
+    if(next.disabled) return;
+    S.profile={displayName:ob.name.trim(),stage:ob.stage,researchStage:ob.stage,interests:ob.interests.length?ob.interests:['まだ決めていない'],mentor:''};
+    S.procStage=ob.stage==='hs'?'notice':DEFAULT_PROC;
+    rollDaily(); S.lastLoginDate=today(); S.loginDays=1; S.testCode=S.testCode||makeCode(); S.metrics.firstUse=today(); gainEnergy(LOGIN_NORMAL); S.observationEnergy+=OBS_COST; S.charObs[STARTER]=1;
+    save(); ob.step=2; renderOnboarding();
+  };
+}
+
+/* ----- エネルギー ----- */
+let gaugeFrom=null;
+function gainEnergy(n){
+  if(n<=0) return 0;
+  const before=levelInfo(S.totalEnergy);
+  gaugeFrom=before;
+  S.totalEnergy+=n; S.observationEnergy+=n;
+  const after=levelInfo(S.totalEnergy);
+  return after.lv>before.lv?after.lv:0;
+}
+
+/* ----- ホーム ----- */
+const CLIMB='M8 58 L70 58 C118 58 128 12 170 12';
+const FULL=CLIMB+' C210 12 222 66 268 66 L312 66';
+function gaugeHTML(){
+  const L=levelInfo(S.totalEnergy);
+  return `<button class="gauge paper" id="gauge" aria-label="反応レベル ${L.lv}。次の反応まで あと${L.need-L.into}">
+    <svg viewBox="0 0 320 80" aria-hidden="true">
+      <path class="g-fill" id="gFill" d="${CLIMB}"/>
+      <path class="g-curve" d="${FULL}" filter="url(#wob1)"/>
+      <circle class="g-dot" id="gDot" r="7" cx="8" cy="58"/>
+      <text x="170" y="4" text-anchor="middle" font-size="12" fill="currentColor" opacity=".6" font-family="Klee One, sans-serif">活性化エネルギー</text>
+    </svg>
+    <div class="g-cap"><span>反応Lv <b>${L.lv}</b></span><span>次の反応まで あと <b>${L.need-L.into}</b></span></div></button>`;
+}
+function drawGauge(frac){
+  const p=$('#gFill'),d=$('#gDot'); if(!p) return;
+  const len=p.getTotalLength(), l=Math.max(0,Math.min(1,frac))*len, pt=p.getPointAtLength(l);
+  p.style.strokeDasharray=`${Math.max(l,0.01)} ${len}`; d.setAttribute('cx',pt.x); d.setAttribute('cy',pt.y);
+}
+function animateGauge(){
+  const to=levelInfo(S.totalEnergy); let from=gaugeFrom; gaugeFrom=null;
+  if(!from||reduceMotion()){ drawGauge(to.frac); return; }
+  const f0=from.lv<to.lv?0:from.frac, t0=performance.now();
+  (function step(t){ const k=Math.min(1,(t-t0)/800), e=1-Math.pow(1-k,3); drawGauge(f0+(to.frac-f0)*e); if(k<1) requestAnimationFrame(step); })(t0);
+}
+/* ===== 問いの型（坂本ほか, 2016 の「問いの表現形式の理解」をヒントに）=====
+   「なぜ〜？」は調べることが決まらない。変えるもの・測るものが入った形にすると調べやすくなる */
+const STEM_LIST=['〜を変えると、〜はどう変わる？','〜はどのくらい？（量・時間・回数）','〜と〜では、どちらが〜？','〜と〜には、どんな関係がある？'];
+const STEM_EX={
+  '地学・宇宙':['砂と泥の割合を変えると、地層のしまはどう変わる？','月が見える位置は、1時間でどのくらい動く？','晴れの夜とくもりの夜では、どちらが気温が下がる？','標高と気温には、どんな関係がある？'],
+  '物理・化学':['水の温度を変えると、砂糖が溶ける量はどう変わる？','10円玉がピカピカになるまで、どのくらいかかる？','水道水と食塩水では、どちらが早く凍る？','振り子の長さと、1往復の時間にはどんな関係がある？'],
+  '生物・医療':['光の色を変えると、豆苗の伸び方はどう変わる？','ダンゴムシは1分間にどのくらい歩く？','朝と夜では、どちらが脈拍が多い？','睡眠時間と、朝の反応の速さにはどんな関係がある？'],
+  '情報・数理':['ボタンの色を変えると、押される回数はどう変わる？','1日にスマホを何回見ている？','紙とアプリでは、どちらが単語を覚えやすい？','練習した回数と、タイピングの速さにはどんな関係がある？'],
+  '環境・農':['水やりの回数を変えると、ミニトマトの実の数はどう変わる？','学校のごみは1日にどのくらい出る？','川の上流と下流では、どちらの水がにごっている？','木の多さと、夏の地面の温度にはどんな関係がある？'],
+  '人文・歴史':['時代が変わると、教科書の言葉づかいはどう変わる？','地元の地名で「川」が付くものはどのくらいある？','明治と昭和では、どちらの新聞の見出しが長い？','古い道の位置と、今の商店街にはどんな関係がある？'],
+  '社会・経済':['値段の書き方を変えると、選ばれる商品はどう変わる？','駅前の自転車は1日でどのくらい増える？','平日と休日では、どちらがコンビニの客が多い？','天気と、売店のアイスの売り上げにはどんな関係がある？'],
+  '教育・心理':['音楽をかけると、計算問題の正答数はどう変わる？','集中が続くのは何分くらい？','手書きとタイピングでは、どちらが覚えやすい？','睡眠時間と、授業中の眠気にはどんな関係がある？']
+};
+const STEM_RE=/問い|なぜ|予想|気になる/;
+function stemField(){ const ints=(S.profile&&S.profile.interests)||[]; return ints.find(f=>STEM_EX[f])||'物理・化学'; }
+function stemsHTML(st){
+  if(!STEM_RE.test(st.text)) return '';
+  return `<div class="stems"><span class="tl">調べやすい問いの型（押すと例が出ます）</span>
+    <div class="stemrow">${STEM_LIST.map((s,i)=>`<button class="stem" data-stem="${i}">${s}</button>`).join('')}</div>
+    <p class="stemex" id="stemEx" aria-live="polite">「なぜ〜？」は、この形に直すと何を調べればいいかが決まります。</p>
+    <button class="btn-quiet qlink" id="qFromStep">問いのくらべっこで練習する</button></div>`;
+}
+function bindStems(){
+  main.querySelectorAll('[data-stem]').forEach(b=>b.onclick=()=>{
+    bump('stemTaps'); SFX.play('tap');
+    main.querySelectorAll('[data-stem]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    const ex=STEM_EX[stemField()][+b.dataset.stem];
+    $('#stemEx').innerHTML=`例（${esc(stemField())}）：<span class="hl">${esc(ex)}</span>`;
+  });
+  const q=$('#qFromStep'); if(q) q.onclick=openQuiz;
+}
+
+/* ===== 問いのくらべっこ（良い問い・そうでない問いを比べる：坂本ほか 2016 研究2）=====
+   lv1 調べにくい問い ／ lv2 確かめて終わる問い ／ lv3 調べやすい問い */
+const QUIZ=[
+  {scene:'冬の朝、教室の窓ガラスの内側に水滴がついていた。',qs:[
+    {t:'なぜ水滴がつくの？',lv:1,why:'答えの範囲が広く、何を測ればいいかが決まりません。'},
+    {t:'教室の空気に水分はあったの？',lv:2,why:'「あった」と分かった時点で終わってしまい、次に進みにくい問いです。'},
+    {t:'外と教室の温度差が何℃あると、水滴がつき始める？',lv:3,why:'変えるもの（温度差）と見るもの（水滴がつくか）がはっきりしていて、確かめられます。'}]},
+  {scene:'10円玉をしょうゆにつけておいたら、ピカピカになった。',qs:[
+    {t:'しょうゆでなぜきれいになるの？',lv:1,why:'何を変えて何を見ればいいかが、まだ決まっていません。'},
+    {t:'しょうゆに汚れを落とす成分は入っているの？',lv:2,why:'入っているかどうかを確かめるだけで、調べると終わってしまいます。'},
+    {t:'しょうゆの塩分の濃さを変えると、きれいになるまでの時間はどう変わる？',lv:3,why:'濃さを変えて時間を測る、という実験の形がそのまま見えます。'}]},
+  {scene:'炭酸水のペットボトルを開けっぱなしにしたら、気が抜けていた。',qs:[
+    {t:'炭酸ってそもそも何？',lv:1,why:'調べ学習にはなりますが、この現象を確かめる実験にはつながりにくい問いです。'},
+    {t:'気が抜けたとき、二酸化炭素は出ていったの？',lv:2,why:'「出ていった」と確かめて終わる問いです。どのくらい・何によって、が入るともっと進めます。'},
+    {t:'水の温度を変えると、気が抜けるまでの時間はどう変わる？',lv:3,why:'温度という変えるものと、時間という測るものが入っています。'}]},
+  {scene:'切ったリンゴが茶色くなった。レモン汁をかけた方は変わりにくかった。',qs:[
+    {t:'リンゴはなぜ茶色くなるの？',lv:1,why:'理由を知りたい気持ちは大切ですが、このままだと何を調べるかが決まりません。'},
+    {t:'レモン汁には変色を防ぐ効果があるの？',lv:2,why:'ある・ないで終わりやすい問いです。'},
+    {t:'レモン汁の量を変えると、茶色くなるまでの時間はどう変わる？',lv:3,why:'量を変えて時間を比べる実験に、そのまま進めます。'}]},
+  {scene:'同じ種類の花なのに、日なたと日かげで咲く時期がちがった。',qs:[
+    {t:'花はどうやって咲く時期を決めているの？',lv:1,why:'大きすぎる問いで、最初の一歩が決まりません。'},
+    {t:'日かげの花は、光が足りなかったの？',lv:2,why:'光に注目できているのは良い点です。ただ、足りたかどうかを確かめるだけになっています。'},
+    {t:'1日に光が当たる時間を変えると、つぼみが開くまでの日数はどう変わる？',lv:3,why:'光の時間を変えて日数を数える、という調べ方が見えます。'}]},
+  {scene:'雨のあと、校庭には水たまりがすぐ消える場所と、残る場所があった。',qs:[
+    {t:'水たまりの水はどこへ行くの？',lv:1,why:'気になる問いですが、何を比べればいいかがまだ決まっていません。'},
+    {t:'残る場所の土は、水を通しにくいの？',lv:2,why:'通しにくいかどうかを確かめて終わりやすい問いです。'},
+    {t:'土の粒の大きさを変えると、水がしみこむ速さはどう変わる？',lv:3,why:'粒の大きさという変えるものと、速さという測るものが入っています。'}]},
+  {scene:'氷に塩をかけたら、かけないものより早くとけた気がする。',qs:[
+    {t:'塩と氷はどんな関係なの？',lv:1,why:'「関係」が何を指すのかが広すぎて、調べ方が決まりません。'},
+    {t:'塩には氷をとかす力があるの？',lv:2,why:'ある・ないの確認で終わりやすい問いです。'},
+    {t:'塩の量を変えると、氷が全部とけるまでの時間はどう変わる？',lv:3,why:'量を変えて時間を測る、という形になっています。'}]},
+  {scene:'紙飛行機を折ったら、よく飛ぶものとすぐ落ちるものがあった。',qs:[
+    {t:'飛行機はなぜ飛べるの？',lv:1,why:'とても大きな問いで、今日の実験には落とし込みにくいです。'},
+    {t:'翼の形は、飛び方に関係があるの？',lv:2,why:'関係がありそう、と確かめて終わりやすい問いです。'},
+    {t:'翼の幅を変えると、飛ぶ距離はどう変わる？',lv:3,why:'幅を変えて距離を測る、という調べ方がはっきりしています。'}]},
+  {scene:'同じ量のお湯なのに、マグカップと紙コップで冷め方がちがった。',qs:[
+    {t:'熱はどこへ行くの？',lv:1,why:'問いが大きく、何を測ればいいかが決まっていません。'},
+    {t:'紙コップは熱を逃がしやすいの？',lv:2,why:'逃がしやすいかどうかを確かめて終わる問いです。'},
+    {t:'コップの材質を変えると、10分後の温度はどう変わる？',lv:3,why:'材質を変えて温度を測る、という実験になっています。'}]},
+  {scene:'パン生地は、暖かい場所に置いた方がよくふくらんだ。',qs:[
+    {t:'パンはなぜふくらむの？',lv:1,why:'理由を知る調べ学習にはなりますが、実験の形にはなっていません。'},
+    {t:'温度はふくらみ方に関係があるの？',lv:2,why:'関係がある、と確かめて終わりやすい問いです。'},
+    {t:'置く場所の温度を変えると、30分後の生地の大きさはどう変わる？',lv:3,why:'温度を変えて大きさを測る、という形が見えます。'}]},
+  {scene:'テスト前になると、図書館の利用者が増えている気がする。',qs:[
+    {t:'人はなぜ図書館に行くの？',lv:1,why:'人によって理由がちがい、何を数えればいいかが決まりません。'},
+    {t:'テスト前は、本当に利用者が多いの？',lv:2,why:'多いかどうかを確かめて終わりやすい問いです。'},
+    {t:'テストまでの日数と、1日の利用者数にはどんな関係がある？',lv:3,why:'日数と人数という、2つの数の関係を調べる形になっています。'}]},
+  {scene:'寒い日に外でスマホを使うと、電池が早く減る気がした。',qs:[
+    {t:'電池の中では何が起きているの？',lv:1,why:'知りたい気持ちは大切ですが、まず何を測るかが決まっていません。'},
+    {t:'寒いと電池は弱くなるの？',lv:2,why:'弱くなるかどうかを確かめて終わる問いです。'},
+    {t:'まわりの温度を変えると、電池が10%減るまでの時間はどう変わる？',lv:3,why:'温度を変えて時間を測る、という調べ方がはっきりしています。'}]}
+];
+const QLV={1:'調べにくい問い',2:'確かめて終わる問い',3:'調べやすい問い'};
+function quizToday(){ const d=dayNum(today()); return [0,1,2].map(i=>QUIZ[(d*3+i)%QUIZ.length]); }
+function qeyeCardHTML(){
+  const q=S.qeye||{}, done=q.date===today();
+  return `<div class="qcard paper tape"><span class="k" style="color:var(--red);font-size:14px">問いのくらべっこ</span>
+    <p style="margin:0;font-family:var(--hand);font-size:19px">${done?'今日の3問はクリアしました。':'3つの問いのうち、いちばん調べやすいのはどれ？'}</p>
+    <span class="count" style="font-size:13px">問いの目 ${q.correct||0}　くらべた回数 ${q.rounds||0}</span>
+    <button class="btn ${done?'btn-soft':'btn-primary'}" id="qStart" style="${done?'':'min-height:56px;font-size:20px'}">${done?'もう一度くらべる':'今日の3問をやる'}</button></div>`;
+}
+function openQuiz(){
+  const set=quizToday(); let i=0, score=0;
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  document.body.appendChild(bg);
+  const close=()=>{ bg.remove(); if(view==='map') renderMap(); };
+  bg.onclick=e=>{ if(e.target===bg) close(); };
+  const order=(n)=>{ const a=[0,1,2]; const s=(dayNum(today())+n*7)%6; return [[0,1,2],[2,0,1],[1,2,0],[0,2,1],[1,0,2],[2,1,0]][s]; };
+  const show=()=>{
+    const Q=set[i], ord=order(i);
+    bg.innerHTML=`<div class="sheet form quiz" role="dialog" aria-modal="true" aria-label="問いのくらべっこ">
+      <span class="count" style="color:var(--red);font-size:14px">問いのくらべっこ ${i+1} / ${set.length}</span>
+      <p class="qscene">${esc(Q.scene)}</p>
+      <p style="margin:0;font-weight:600">いちばん調べやすい問いはどれ？</p>
+      <div class="qopts">${ord.map(k=>`<button class="qopt" data-k="${k}">${esc(Q.qs[k].t)}</button>`).join('')}</div>
+      <div id="qfb"></div>
+      <button class="btn btn-quiet" id="qClose">やめる</button></div>`;
+    bg.querySelector('#qClose').onclick=close;
+    bg.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{
+      const k=+b.dataset.k, ok=Q.qs[k].lv===3; if(ok) score++;
+      SFX.play(ok?'gain':'tap'); hap(ok?[12,40,12]:12);
+      bg.querySelectorAll('.qopt').forEach(x=>{ const kk=+x.dataset.k, it=Q.qs[kk]; x.disabled=true;
+        x.classList.add('lv'+it.lv); if(x===b) x.classList.add('chosen');
+        x.innerHTML=`<span class="qtag">${QLV[it.lv]}</span>${esc(it.t)}<span class="qwhy">${esc(it.why)}</span>`; });
+      bg.querySelector('#qfb').innerHTML=`<p class="qres">${ok?'<span class="hl">見つけた！</span>':'おしい！　調べやすい問いは、変えるものと測るものが入っています。'}</p>
+        <button class="btn btn-primary" id="qNext" style="min-height:56px;font-size:20px">${i<set.length-1?'次の問題':'結果を見る'}</button>`;
+      bg.querySelector('#qNext').onclick=()=>{ i++; if(i<set.length) show(); else finish(); };
+    });
+  };
+  const finish=()=>{
+    const q=S.qeye||{rounds:0,correct:0,date:null}, first=q.date!==today();
+    q.rounds=(q.rounds||0)+1; q.correct=(q.correct||0)+score; q.date=today(); S.qeye=q;
+    bump('qRounds'); S.metrics.qCorrect=(S.metrics.qCorrect||0)+score;
+    let lv=0; if(first){ lv=gainEnergy(1); if(lv) bump('levelUps'); }
+    save();
+    bg.innerHTML=`<div class="sheet form quiz" role="dialog" aria-modal="true" aria-label="結果">
+      <h3>${score} / ${set.length} 問</h3>
+      <p class="qscene" style="font-size:18px">調べやすい問いには、<span class="hl">変えるもの</span>と<span class="hl">測るもの</span>が入っています。</p>
+      <ul class="memo">${STEM_LIST.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
+      <p class="count" style="font-size:13px">${first?'今日はじめてのくらべっこなので、エネルギー +1。':'エネルギーがもらえるのは1日1回です。'}　問いの目は ${q.correct} になりました。</p>
+      <button class="btn btn-primary" id="qDone" style="min-height:56px;font-size:20px">閉じる</button></div>`;
+    bg.querySelector('#qDone').onclick=()=>{ close(); if(lv) setTimeout(()=>reactionFx(lv),200); };
+  };
+  show();
+}
+
+/* 論文を探す道具：押すとサイトが開き、同時に研究タイマーも始まる */
+const TOOLS=[
+  {id:'jstage', name:'J-STAGE', sub:'日本語の論文', url:'https://www.jstage.jst.go.jp/'},
+  {id:'cinii', name:'CiNii Research', sub:'論文・本', url:'https://cir.nii.ac.jp/'},
+  {id:'scholar', name:'Google Scholar', sub:'世界の論文', url:'https://scholar.google.co.jp/'}
+];
+const LIT_RE=/論文|先行研究|文献|要旨|引用|キーワード/;
+function toolsHTML(st){
+  if(!LIT_RE.test(st.text)) return '';
+  return `<div class="tools"><span class="tl">論文を探す（押すと研究も始まります）</span><div class="tlrow">${TOOLS.map(t=>`<a class="tbtn" href="${t.url}" target="_blank" rel="noopener noreferrer" data-tool="${t.id}"><b>${t.name}</b><small>${t.sub}</small></a>`).join('')}</div></div>`;
+}
+function renderHome(){
+  setChrome(true);
+  const c=BYID[S.selectedCharacterId]||BYID[STARTER], st=todayStep(), e=S.observationEnergy, L=levelInfo(S.totalEnergy), ready=e>=OBS_COST;
+  main.innerHTML=`<section class="screen home">
+    <div class="topbar"><span class="hello">${esc(S.profile.displayName)}さんの研究ノート</span>
+      <button class="pill${ready?' ready':''}" id="ePill" aria-label="観測エネルギー ${e} / ${OBS_COST}">${ready?'観測できる！':'観測まで'} <b>${ready?e:e+' / '+OBS_COST}</b></button></div>
+    <button class="guardian" id="guard" aria-label="${esc(c.name)}にさわる">${art(c.id)}<span class="line" id="gLine">${isReturning()?'おかえり。今日はこれだけでいい。':LINES[dayNum(today())%LINES.length]}</span></button>
+    ${deskHTML(L.lv)}
+    <div class="step paper tape"><span class="k"><span>今日の一歩</span><span>${st.from?esc(st.from)+'さんの提案':esc(PBY[st.proc].name)}</span></span><p class="t"><span class="hl" id="stepT">${esc(st.text)}</span></p>${toolsHTML(st)}${stemsHTML(st)}</div>
+    <div class="home-actions">
+      <button class="btn btn-primary" id="start">研究を始める</button>
+      <button class="btn btn-quiet" id="swap">ほかの一歩にする</button>
+    </div>
+    ${gaugeHTML()}
+  </section>`;
+  $('#start').onclick=()=>{ SFX.play('tap'); hap(12); startResearch(); };
+  $('#swap').onclick=()=>{ bump('swaps'); rollDaily(); if(S.custom&&S.custom.date===today()) S.custom=null; else S.daily.stepShift++; save(); renderHome(); };
+  $('#ePill').onclick=()=>go('observe');
+  $('#gauge').onclick=()=>go('map');
+  bindStems();
+  main.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',()=>{
+    S.metrics.tools=S.metrics.tools||{}; S.metrics.tools[a.dataset.tool]=(S.metrics.tools[a.dataset.tool]||0)+1;
+    SFX.play('tap'); hap(12);
+    setTimeout(()=>{ if(!S.running) startResearch(); },0);   // リンクが開いてから研究画面に切り替える
+  }));
+  const g=$('#guard');
+  g.onclick=()=>{ bump('taps'); SFX.play('tap'); hap(10); g.classList.remove('hop'); void g.offsetWidth; g.classList.add('hop'); $('#gLine').textContent=TAP_LINES[Math.floor(rand()*TAP_LINES.length)]; };
+  startBoil(g.querySelector('svg'));
+  requestAnimationFrame(animateGauge);
+  if(pendingFx){ const f=pendingFx; pendingFx=null; setTimeout(f,750); }
+}
+
+/* ===== 下書きメモ（紙の研究ノートに写すための一時的なメモ）=====
+   ・書けるのは研究中の画面だけ ・作成時刻は自動で記録され、変えられない
+   ・書き直しは元の文を取り消し線で残す ・「写した」メモは7日後に自動で消える
+   ・端末の中だけに保存（クラウド同期・テスト結果には含めない） */
+const COPIED_KEEP_DAYS=7;
+const FINE=matchMedia('(hover:hover) and (pointer:fine)').matches;
+const MDB={db:null,name:TEST_BUILD?'kfw-chemtest-memos':'kfw-memos',
+  open(){ if(this.db) return Promise.resolve(this.db);
+    return new Promise((res,rej)=>{ let r; try{ r=indexedDB.open(this.name,1); }catch(e){ rej(e); return; }
+      r.onupgradeneeded=()=>{ const st=r.result.createObjectStore('memos',{keyPath:'id'}); st.createIndex('session','sessionId'); };
+      r.onsuccess=()=>{ this.db=r.result; res(this.db); }; r.onerror=()=>rej(r.error); }); },
+  req(mode,fn){ return this.open().then(d=>new Promise((res,rej)=>{ const t=d.transaction('memos',mode), q=fn(t.objectStore('memos')); t.oncomplete=()=>res(q&&q.result); t.onerror=()=>rej(t.error); })); },
+  put(m){ return this.req('readwrite',s=>s.put(m)).then(()=>m); },
+  del(id){ return this.req('readwrite',s=>s.delete(id)); },
+  all(){ return this.req('readonly',s=>s.getAll()).then(a=>(a||[]).sort((x,y)=>x.createdAt-y.createdAt)); },
+  bySession(sid){ return this.all().then(a=>a.filter(m=>m.sessionId===sid)); },
+  clear(){ return this.req('readwrite',s=>s.clear()); }
+};
+const WD='日月火水木金土';
+function fmtDate(t){ const d=new Date(t); return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}（${WD[d.getDay()]}）`; }
+function fmtTime(t){ const d=new Date(t), z=n=>String(n).padStart(2,'0'); return `${z(d.getHours())}:${z(d.getMinutes())}`; }
+function memoErr(){ toast('メモを保存できませんでした。紙のノートに直接書いてください。',2600); }
+async function cleanupMemos(){
+  try{ const lim=Date.now()-COPIED_KEEP_DAYS*86400000; for(const m of await MDB.all()) if(m.copiedAt&&m.copiedAt<lim) await MDB.del(m.id); }catch(e){}
+}
+async function markCopied(sid){
+  try{ for(const m of await MDB.bySession(sid)) if(!m.copiedAt){ m.copiedAt=Date.now(); await MDB.put(m); } }catch(e){}
+}
+/* 写真は長辺1280pxのJPEGに縮めて保存 */
+function shrinkPhoto(file){
+  return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onerror=()=>rej(fr.error); fr.onload=()=>{ const im=new Image(); im.onerror=rej; im.onload=()=>{
+    const k=Math.min(1,1280/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k);
+    c.getContext('2d').drawImage(im,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',0.78)); }; im.src=fr.result; }; fr.readAsDataURL(file); });
+}
+/* 1件の表示：元の文は取り消し線で残し、最新の文に修正時刻を付ける */
+function memoItemHTML(m,editable){
+  const revs=m.revs||[], last=revs[revs.length-1];
+  const old=revs.slice(0,-1).map(r=>`<div class="mold">${esc(r.text)||'（説明なし）'}</div>`).join('');
+  const cur=last&&last.text?`<div class="mtext">${esc(last.text)}${revs.length>1?` <span class="medit-at">（${fmtTime(last.at)} 修正）</span>`:''}</div>`:'';
+  const photo=m.kind==='photo'?(m.photo?`<img class="mphoto" src="${m.photo}" alt="${fmtTime(m.createdAt)}の写真">`:`<div class="mold">写真を削除しました（${fmtTime(m.photoRemovedAt)}）</div>`):'';
+  const acts=editable&&!m.voidedAt?`<div class="mact"><button data-medit="${m.id}">${m.kind==='photo'?(last&&last.text?'説明を書き直す':'説明を書く'):'書き直す'}</button>${m.kind==='photo'&&m.photo?`<button data-mdelphoto="${m.id}">写真を消す</button>`:''}<button data-mvoid="${m.id}">取り消す</button></div>`:'';
+  return `<div class="mitem${m.voidedAt?' mvoid':''}" id="mi-${m.id}"><span class="mtime">${fmtTime(m.createdAt)}</span><div>${photo}${old}${cur}${m.voidedAt?`<div class="medit-at">取り消し（${fmtTime(m.voidedAt)}）</div>`:''}${m.copiedAt?'<div class="medit-at">紙に写した</div>':''}${acts}</div></div>`;
+}
+function bindMemoActions(box,refresh){
+  box.querySelectorAll('[data-medit]').forEach(b=>b.onclick=async()=>{
+    const all=await MDB.all(), m=all.find(x=>x.id===b.dataset.medit); if(!m) return;
+    const last=(m.revs||[]).slice(-1)[0], el=box.querySelector('#mi-'+m.id+' > div');
+    el.insertAdjacentHTML('beforeend',`<div class="mcompose" style="margin-top:6px"><textarea maxlength="400" aria-label="書き直す">${esc(last?last.text:'')}</textarea><div class="mrow"><button class="btn btn-small" data-ok>残す</button><button class="btn btn-small" data-cancel>やめる</button></div></div>`);
+    const ta=el.querySelector('textarea'); ta.focus();
+    el.querySelector('[data-cancel]').onclick=()=>refresh();
+    el.querySelector('[data-ok]').onclick=async()=>{ const t=ta.value.trim(); if(last&&t===last.text){ refresh(); return; }
+      m.revs=[...(m.revs||[]),{text:t,at:Date.now()}]; try{ await MDB.put(m); bump('memoEdits'); save(); }catch(e){ memoErr(); } refresh(); };
+  });
+  box.querySelectorAll('[data-mvoid]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('このメモを取り消し線で消しますか？（記録は残ります）')) return;
+    const m=(await MDB.all()).find(x=>x.id===b.dataset.mvoid); if(!m) return; m.voidedAt=Date.now(); try{ await MDB.put(m); }catch(e){ memoErr(); } refresh(); });
+  box.querySelectorAll('[data-mdelphoto]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('この写真を消しますか？　消したことは時刻とともに記録されます。')) return;
+    const m=(await MDB.all()).find(x=>x.id===b.dataset.mdelphoto); if(!m) return; m.photo=null; m.photoRemovedAt=Date.now(); try{ await MDB.put(m); }catch(e){ memoErr(); } refresh(); });
+}
+/* 研究中に開くメモ帳 */
+function openMemoSheet(sid,onClose){
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="下書きメモ">
+    <h3>下書きメモ <small style="font-family:var(--body);font-size:14px;color:var(--pencil)">${fmtDate(Date.now())}</small></h3>
+    <p class="count" style="font-size:13px">研究が終わったら、紙の研究ノートに写すための下書きです。時刻は自動で記録されます。実験中は、手袋を外すなど安全を確かめてから触ってください。</p>
+    <div class="mlist" id="mlist"></div>
+    <div class="mcompose"><textarea id="mta" maxlength="400" placeholder="気づいたこと・数値・ようす" aria-label="メモ"></textarea>
+      <div class="mrow"><button class="btn" id="madd">残す</button><button class="btn" id="mphoto">${FINE?'写真を選ぶ':'写真を撮る'}</button></div>
+      <input type="file" id="mfile" accept="image/*" capture="environment" hidden></div>
+    <button class="btn btn-quiet" id="mclose">研究にもどる</button></div>`;
+  document.body.appendChild(bg);
+  const list=bg.querySelector('#mlist');
+  const refresh=async()=>{ try{ const ms=await MDB.bySession(sid); list.innerHTML=ms.length?ms.map(m=>memoItemHTML(m,true)).join(''):'<p class="count" style="font-size:14px">まだメモはありません。</p>'; bindMemoActions(list,refresh); }catch(e){ list.innerHTML='<p class="count">この端末ではメモを保存できません。</p>'; } };
+  refresh();
+  const close=()=>{ bg.remove(); onClose&&onClose(); };
+  bg.onclick=e=>{ if(e.target===bg) close(); }; bg.querySelector('#mclose').onclick=close;
+  bg.querySelector('#madd').onclick=async()=>{ const ta=bg.querySelector('#mta'), t=ta.value.trim(); if(!t) return;
+    const now=Date.now(); try{ await MDB.put({id:'m'+now.toString(36)+Math.floor(rand()*1e4).toString(36),sessionId:sid,createdAt:now,kind:'text',revs:[{text:t,at:now}],photo:null,copiedAt:null}); bump('memoText'); save(); ta.value=''; SFX.play('write'); }catch(e){ memoErr(); } refresh(); };
+  const fi=bg.querySelector('#mfile');
+  bg.querySelector('#mphoto').onclick=()=>fi.click();
+  fi.onchange=async()=>{ const f=fi.files&&fi.files[0]; fi.value=''; if(!f) return;
+    const now=Date.now(); try{ const url=await shrinkPhoto(f); await MDB.put({id:'p'+now.toString(36)+Math.floor(rand()*1e4).toString(36),sessionId:sid,createdAt:now,kind:'photo',revs:[],photo:url,copiedAt:null}); bump('memoPhoto'); save(); SFX.play('tap'); }catch(e){ memoErr(); } refresh(); };
+}
+/* 時刻付きのメモと写真を1枚の画像にまとめる */
+function loadImg(src){ return new Promise(r=>{ const i=new Image(); i.onload=()=>r(i); i.onerror=()=>r(null); i.src=src; }); }
+async function memoSheetImage(memos,title){
+  try{ await document.fonts.ready; }catch(e){}
+  const W=1080, P=64, TX=P+120, TW=W-TX-P, ink='#1E2A47', pen='#5C6380', red='#D6402E';
+  const F=(w,s,hand)=>`${w} ${s}px ${hand?'"Yomogi","Klee One"':'"Klee One"'},"Hiragino Maru Gothic ProN","Noto Sans JP",sans-serif`;
+  const c=document.createElement('canvas'), x=c.getContext('2d');
+  const wrap=(t,font)=>{ x.font=font; const out=[]; for(const para of String(t).split('\n')){ let line=''; for(const ch of para){ if(x.measureText(line+ch).width>TW&&line){ out.push(line); line=ch; } else line+=ch; } out.push(line); } return out; };
+  const blocks=[]; for(const m of memos){ const b={m,lines:[],img:null,ih:0};
+    (m.revs||[]).forEach((r,i,a)=>{ wrap(r.text||'（説明なし）',F(400,34,true)).forEach(l=>b.lines.push({l,old:i<a.length-1,font:F(400,34,true)})); if(i===a.length-1&&a.length>1) b.lines.push({l:`（${fmtTime(r.at)} 修正）`,font:F(600,22),note:true}); });
+    if(m.kind==='photo'){ if(m.photo){ b.img=await loadImg(m.photo); if(b.img){ const k=Math.min(TW/b.img.width,640/b.img.height); b.iw=b.img.width*k; b.ih=b.img.height*k; } } else b.lines.unshift({l:`写真を削除（${fmtTime(m.photoRemovedAt)}）`,font:F(600,24),note:true}); }
+    if(m.voidedAt) b.lines.push({l:`取り消し（${fmtTime(m.voidedAt)}）`,font:F(600,22),note:true});
+    b.h=Math.max(52,(b.ih?b.ih+20:0)+b.lines.length*50)+36; blocks.push(b); }
+  const H=Math.min(15000,P+150+blocks.reduce((a,b)=>a+b.h,0)+110);
+  c.width=W; c.height=H; x.fillStyle='#FCFCF9'; x.fillRect(0,0,W,H);
+  x.strokeStyle='rgba(64,112,196,.12)'; x.lineWidth=1; for(let i=0;i<W;i+=24){ x.beginPath(); x.moveTo(i,0); x.lineTo(i,H); x.stroke(); } for(let i=0;i<H;i+=24){ x.beginPath(); x.moveTo(0,i); x.lineTo(W,i); x.stroke(); }
+  x.strokeStyle='rgba(214,64,46,.35)'; x.lineWidth=3; x.beginPath(); x.moveTo(P+96,0); x.lineTo(P+96,H); x.stroke();
+  x.fillStyle=ink; x.font=F(400,52,true); x.fillText(title,P,P+56);
+  x.fillStyle=pen; x.font=F(600,24); x.fillText('下書きメモ（正式な記録は紙の研究ノートへ）',P,P+100);
+  let y=P+160;
+  for(const b of blocks){ if(y+40>H-100) break;
+    x.fillStyle=red; x.font=F(600,30); x.fillText(fmtTime(b.m.createdAt),P,y+30);
+    let yy=y;
+    if(b.img){ x.save(); x.translate(TX,yy); x.rotate(-0.006); x.drawImage(b.img,0,0,b.iw,b.ih); x.strokeStyle=ink; x.lineWidth=3; x.strokeRect(0,0,b.iw,b.ih); x.restore(); yy+=b.ih+20; }
+    for(const L of b.lines){ x.font=L.font; x.fillStyle=L.old||L.note||b.m.voidedAt?pen:ink; x.fillText(L.l,TX,yy+36);
+      if(L.old||(b.m.voidedAt&&!L.note)){ const w=x.measureText(L.l).width; x.strokeStyle=pen; x.lineWidth=2.5; x.beginPath(); x.moveTo(TX,yy+24); x.lineTo(TX+w,yy+24); x.stroke(); }
+      yy+=50; }
+    y+=b.h; x.setLineDash([8,8]); x.strokeStyle='rgba(30,42,71,.25)'; x.lineWidth=2; x.beginPath(); x.moveTo(P,y-16); x.lineTo(W-P,y-16); x.stroke(); x.setLineDash([]);
+  }
+  x.fillStyle=pen; x.font=F(600,22); x.fillText('研究フワフワ大脱出',P,H-40);
+  return c;
+}
+async function openMemoExport(memos,title){
+  bump('memoExports'); save();
+  if(!memos.length){ toast('書き出すメモがありません',1200); return; }
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="書き出し"><h3>1枚にまとめました</h3><p class="count" style="font-size:14px">作っています…</p></div>`;
+  document.body.appendChild(bg);
+  const close=()=>bg.remove(); bg.onclick=e=>{ if(e.target===bg) close(); };
+  let cv; try{ cv=await memoSheetImage(memos,title); }catch(e){ bg.querySelector('.sheet').innerHTML='<p class="count">画像を作れませんでした。</p><button class="btn btn-quiet" id="xc">閉じる</button>'; bg.querySelector('#xc').onclick=close; return; }
+  const url=cv.toDataURL('image/jpeg',0.86), fname=`下書きメモ_${title.replace(/[\/（）\s]/g,'')}.jpg`;
+  const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',0.86)), file=blob&&new File([blob],fname,{type:'image/jpeg'});
+  const canShare=!!(file&&navigator.canShare&&navigator.canShare({files:[file]}));
+  bg.querySelector('.sheet').innerHTML=`<h3>1枚にまとめました</h3>
+    <img src="${url}" alt="${esc(title)}の下書きメモ" style="width:100%;border:2px solid var(--ink);border-radius:4px">
+    <p class="count" style="font-size:13px">${FINE?'画像を右クリックすると保存できます。':'画像を長押しすると保存できます。'}先生への報告や発表の準備に使えます。</p>
+    ${canShare?'<button class="btn btn-primary" id="xs" style="min-height:56px;font-size:20px">共有する</button>':''}
+    ${TEST_BUILD?`<a class="btn btn-soft" style="text-align:center;text-decoration:none;color:var(--ink);display:flex;align-items:center;justify-content:center" href="${url}" download="${esc(fname)}">画像を保存する</a>`:''}
+    <button class="btn btn-quiet" id="xc">閉じる</button>`;
+  bg.querySelector('#xc').onclick=close;
+  const xs=bg.querySelector('#xs'); if(xs) xs.onclick=async()=>{ try{ await navigator.share({files:[file],title:'下書きメモ'}); }catch(e){} };
+}
+/* 研究終了画面：この回のメモを並べる */
+async function fillEndMemos(sid){
+  const box=$('#endMemos'); if(!box) return;
+  let ms=[]; try{ ms=await MDB.bySession(sid); }catch(e){}
+  if(!ms.length){ box.innerHTML=''; return; }
+  box.innerHTML=`<div class="endmemos paper"><span class="count" style="font-size:14px;color:var(--red)">この回の下書き（${ms.length}件）。見ながら紙に写せます。</span><div class="mlist">${ms.map(m=>memoItemHTML(m,false)).join('')}</div>
+    <button class="btn btn-quiet" id="endExport" style="align-self:flex-start;padding-left:0">1枚にまとめて書き出す</button></div>`;
+  $('#endExport').onclick=()=>openMemoExport(ms,fmtDate(ms[0].createdAt));
+}
+/* マップ画面：日付ごとの下書き */
+async function fillDraftSection(){
+  const box=$('#draftSec'); if(!box) return;
+  let ms=[]; try{ ms=await MDB.all(); }catch(e){ box.innerHTML=''; return; }
+  if(!ms.length){ box.innerHTML=''; return; }
+  const days={}; ms.forEach(m=>{ const k=today(new Date(m.createdAt)); (days[k]=days[k]||[]).push(m); });
+  const keys=Object.keys(days).sort().reverse();
+  box.innerHTML=`<h2 class="ttl sm">下書きメモ</h2><p class="count" style="font-size:13px">紙に写したメモは${COPIED_KEEP_DAYS}日後に自動で消えます。正式な記録は紙の研究ノートへ。</p>
+    <div class="mdays">${keys.map(k=>{ const a=days[k], left=a.filter(m=>!m.copiedAt).length;
+      return `<button class="node mday" data-day="${k}"><span class="nm">${fmtDate(a[0].createdAt)}</span><span class="fp">${a.length}件・${left?`まだ写していない ${left}件`:'紙に写した'}</span></button>`; }).join('')}</div>`;
+  box.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>openDaySheet(b.dataset.day));
+}
+async function openDaySheet(k){
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  document.body.appendChild(bg);
+  const close=()=>{ bg.remove(); if(view==='map') fillDraftSection(); };
+  const draw=async()=>{
+    const ms=(await MDB.all()).filter(m=>today(new Date(m.createdAt))===k), left=ms.filter(m=>!m.copiedAt);
+    if(!ms.length){ close(); return; }
+    bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="${fmtDate(ms[0].createdAt)}の下書き"><h3>${fmtDate(ms[0].createdAt)}</h3>
+      <div class="mlist">${ms.map(m=>memoItemHTML(m,false)).join('')}</div>
+      ${left.length?`<button class="btn btn-primary" id="dCopied" style="min-height:56px;font-size:20px">紙に写した（${left.length}件）</button>`:''}
+      <button class="btn btn-soft" id="dExport">1枚にまとめて書き出す</button>
+      <button class="btn btn-quiet" id="dClose">閉じる</button></div>`;
+    bg.querySelector('#dClose').onclick=close;
+    bg.querySelector('#dExport').onclick=()=>openMemoExport(ms,fmtDate(ms[0].createdAt));
+    const dc=bg.querySelector('#dCopied'); if(dc) dc.onclick=async()=>{ for(const m of left){ m.copiedAt=Date.now(); try{ await MDB.put(m); }catch(e){} } SFX.play('write'); toast(`${COPIED_KEEP_DAYS}日後に自動で消えます`,1400); draw(); };
+  };
+  bg.onclick=e=>{ if(e.target===bg) close(); };
+  draw();
+}
+
+/* ----- 研究 ----- */
+function startResearch(){ const st=todayStep(); S.running={sessionId:'s-'+Date.now().toString(36),startTime:Date.now(),proc:st.proc}; save(); view='focus'; render(); }
+function renderFocus(){
+  setChrome(false,true);
+  main.innerHTML=`<section class="screen focus" aria-label="研究中"><span class="mode">RESEARCH MODE</span><div class="clock" id="clock">00:00</div><button class="memo-btn" id="memoBtn">メモ・写真</button><button class="end" id="end">研究を終える</button></section>`;
+  const sid=S.running.sessionId, mb=$('#memoBtn');
+  const cnt=()=>MDB.bySession(sid).then(a=>{ if(document.body.contains(mb)) mb.textContent=a.length?`メモ・写真（${a.length}）`:'メモ・写真'; }).catch(()=>{});
+  cnt(); mb.onclick=()=>openMemoSheet(sid,cnt);
+  const upd=()=>{ const c=$('#clock'); if(c&&S.running){ const t=fmt((Date.now()-S.running.startTime)/1000); c.textContent=t; document.title=`${t} 研究中｜研究フワフワ`; } };
+  upd(); clearInterval(tick); tick=setInterval(upd,1000);
+  $('#end').onclick=endResearch;
+}
+function endResearch(){ clearInterval(tick); S.ending={...S.running,endTime:Date.now()}; S.running=null; save(); view='end'; render(); }
+function renderRecover(){
+  setChrome(false,true);
+  main.innerHTML=`<section class="screen endscr"><h2>研究中でしたか？</h2><p class="dur">始めてから ${fmt((Date.now()-S.running.startTime)/1000)} たっています。</p>
+    <div class="pair"><button class="btn btn-primary" id="cont">続ける</button><button class="btn btn-soft" id="stop">ここで終える</button></div></section>`;
+  $('#cont').onclick=()=>{ view='focus'; render(); }; $('#stop').onclick=endResearch; bump('recovers');
+}
+function renderEnd(){
+  setChrome(false);
+  const dur=Math.min(MAX_SESSION_SEC,(S.ending.endTime-S.ending.startTime)/1000);
+  main.innerHTML=`<section class="screen endscr"><h2>お疲れさまでした。</h2><p class="dur">今日は${fmtMin(dur)}、研究に戻りました。</p>
+    <div id="endMemos"></div>
+    <p class="q">紙の研究ノートに、<br>今日の痕跡を一つ残しましたか？</p>
+    <div class="pair"><button class="btn btn-primary" id="wrote">書いた</button><button class="btn btn-soft" id="later">あとで書く</button></div>
+    <button class="btn btn-quiet" id="resume">まだ続ける</button></section>`;
+  fillEndMemos(S.ending.sessionId);
+  $('#wrote').onclick=()=>commitSession(true); $('#later').onclick=()=>{ bump('later'); commitSession(false); };
+  $('#resume').onclick=()=>{ bump('resumes'); S.running={sessionId:S.ending.sessionId,startTime:S.ending.startTime,proc:S.ending.proc}; S.ending=null; save(); view='focus'; render(); };
+}
+function commitSession(wrote){
+  if(wrote&&S.ending) markCopied(S.ending.sessionId);
+  rollDaily();
+  const e=S.ending, dur=Math.min(MAX_SESSION_SEC,Math.round((e.endTime-e.startTime)/1000));
+  let gain=0;
+  if(dur>=MIN_COUNT_SEC){
+    S.researchSessionCount++;
+    S.sessions.push({sessionId:e.sessionId,startTime:e.startTime,endTime:e.endTime,duration:dur,proc:e.proc});
+    if(S.sessions.length>300) S.sessions=S.sessions.slice(-300);
+    S.lastResearchDate=today();
+    const pr=e.proc||S.procStage; S.footprints[pr]=(S.footprints[pr]||0)+1;   // 足あとは自動で残る（入力なし・報酬なし）
+  }
+  const q=dur>=MIN_REWARD_SEC;
+  if(q&&S.daily.sessionRewards<DAILY_REWARD_CAP){ S.daily.sessionRewards++; gain+=2; }
+  if(wrote){ SFX.play('write'); S.notebookConfirmationCount++; if(q&&S.daily.noteRewards<DAILY_REWARD_CAP){ S.daily.noteRewards++; gain++; } }
+  const lvUp=gainEnergy(gain); if(lvUp) bump('levelUps');
+  S.ending=null; save();
+  if(gain) setTimeout(()=>SFX.play('gain'),300);
+  const msg=gain?`エネルギー +${gain}`:(wrote?'痕跡を残せました':'戻ってこられたのが一歩です');
+  if(lvUp) pendingFx=()=>reactionFx(lvUp,()=>toast(msg)); else setTimeout(()=>toast(msg),80);
+  go('home');
+}
+
+/* ----- ⑤ 反応演出：ノートに反応のようすが描かれていく（約3秒・タップで閉じる） ----- */
+function burstLines(cx,cy,n,color,r1,r2,delay,w){
+  let h=''; for(let i=0;i<n;i++){ const a=i/n*Math.PI*2+rand()*.25, ra=r1*(.8+rand()*.4), rb=r2*(.75+rand()*.4);
+    h+=`<path class="drawin" pathLength="1" d="M${(cx+Math.cos(a)*ra).toFixed(1)} ${(cy+Math.sin(a)*ra).toFixed(1)} L${(cx+Math.cos(a)*rb).toFixed(1)} ${(cy+Math.sin(a)*rb).toFixed(1)}" stroke="${Array.isArray(color)?color[i%color.length]:color}" stroke-width="${w||3.2}" stroke-linecap="round" fill="none" style="animation-delay:${(delay+i*0.012).toFixed(2)}s"/>`; }
+  return h;
+}
+function fxDoodle(R){
+  const c=R.color;
+  if(R.type==='flame') return burstLines(110,90,16,c,10,62,0)+burstLines(250,72,14,c,8,52,.28)+burstLines(182,135,12,c,6,42,.5)
+    +`<g fill="${c}" opacity=".85">${[[70,40],[290,120],[140,160],[230,20],[320,60]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.5"/>`).join('')}</g>`;
+  if(R.type==='explode'){ let pts=''; for(let i=0;i<24;i++){ const a=i/24*Math.PI*2, r=i%2?34:70; pts+=`${(180+Math.cos(a)*r).toFixed(1)},${(95+Math.sin(a)*r*0.8).toFixed(1)} `; }
+    return `<polygon points="${pts}" fill="${c}" filter="url(#pencil)"/><polygon class="drawin" pathLength="1" points="${pts}" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>`
+      +burstLines(180,95,14,'var(--ink)',84,112,.15,2.2)+`<text x="180" y="106" text-anchor="middle" font-size="30" font-family="Yomogi, cursive" fill="var(--ink)">ポン！</text>`; }
+  return `<g transform="translate(18 -16) scale(.9)"><path d="M60 190 L150 104 Q181 92 212 104 L300 190Z" fill="#B88C7A" filter="url(#pencil)"/>`
+    +`<path class="drawin" pathLength="1" d="M60 190 L150 104 Q181 92 212 104 L300 190" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>`
+    +`<path class="drawin" pathLength="1" d="M168 102 C150 70 196 66 176 40 C160 20 200 14 186 -6" fill="none" stroke="${c}" stroke-width="12" stroke-linecap="round" style="animation-delay:.2s"/>`
+    +burstLines(182,20,10,['#FFB23F',c],14,70,.35,4)+'</g>';
+}
+function reactionFx(lv,after){
+  const R=reactionFor(lv);
+  SFX.play('level',R.type); hap([20,60,30]);
+  const ov=document.createElement('div'); ov.className='react-ov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-label',`反応Lv ${lv}。${R.label}`);
+  ov.innerHTML=`<div class="rpage paper"><svg viewBox="0 0 360 290" aria-hidden="true">
+      <g id="fx"></g>
+      <g transform="translate(24 196)">
+        <path class="drawin" pathLength="1" d="${FULL}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" filter="url(#wob1)" style="animation-duration:.7s"/>
+        <path id="fxPath" d="${FULL}" fill="none" stroke="none"/>
+        <g font-size="12" fill="var(--pencil)" font-family="Klee One, sans-serif"><text x="8" y="80">反応物</text><text x="170" y="2" text-anchor="middle">活性化エネルギー</text><text x="304" y="84" text-anchor="end">生成物</text></g>
+        <circle id="fxBall" r="8" cx="8" cy="58" fill="${R.color}" stroke="var(--ink)" stroke-width="2"/>
+      </g></svg>
+    <p class="big"><span class="hl">反応Lv ${lv}</span></p><p class="small">${R.label}</p>
+    <p class="small2">反応図鑑と、机の上に記録が増えました</p><span class="skip">タップで閉じる</span></div>`;
+  document.body.appendChild(ov);
+  const path=ov.querySelector('#fxPath'), ball=ov.querySelector('#fxBall'), fx=ov.querySelector('#fx');
+  const len=path.getTotalLength();
+  const tmp=document.createElementNS(SVGNS,'path'); tmp.setAttribute('d',CLIMB); ov.querySelector('svg').appendChild(tmp); const climbLen=tmp.getTotalLength(); tmp.remove();
+  const place=l=>{ const p=path.getPointAtLength(l); ball.setAttribute('cx',p.x); ball.setAttribute('cy',p.y); };
+  const fire=()=>{ if(!fx.innerHTML) fx.innerHTML=fxDoodle(R); };
+  let done=false; const close=()=>{ if(done) return; done=true; ov.remove(); after&&after(); };
+  ov.onclick=close;
+  if(reduceMotion()){ place(len); fire(); setTimeout(close,3000); return; }
+  const t0=performance.now()+350;
+  (function step(t){ if(done) return; const k=(t-t0)/1000;
+    if(k<0){ place(0); }
+    else if(k<0.85){ const e=k/0.85; place(climbLen*(e*e*(3-2*e))); }
+    else if(k<1.2){ fire(); place(climbLen+(len-climbLen)*((k-0.85)/0.35)); }
+    else { place(len); return; }
+    requestAnimationFrame(step); })(performance.now());
+  setTimeout(close,4200);
+}
+
+/* ----- ② 探究マップ（＋⑤ 成長の記録） ----- */
+let openNode=null;
+function renderMap(){
+  setChrome(true);
+  const L=levelInfo(S.totalEnergy);
+  let html=`<section class="screen narrow"><div><h2 class="ttl">探究マップ</h2><p class="count">いる場所を選ぶと、今日の一歩がそこから出ます。研究すると、その場所に足あとが残ります。</p></div>${qeyeCardHTML()}`;
+  let ph='', n=0;
+  PROCESS.forEach(p=>{
+    if(p.phase!==ph){ if(ph) html+='</div>'; ph=p.phase; html+=`<div class="phase"><h3>${ph}</h3>`; }
+    n++; const here=S.procStage===p.id, open=openNode===p.id, fp=S.footprints[p.id]||0;
+    html+=`<div class="node${here?' here':''}"><button data-node="${p.id}" aria-expanded="${open}"><span class="dotc">${n}</span><span class="nm">${p.name}${here?'<br><small style="color:var(--accent)">いまここ</small>':''}</span><span class="fp">${fp?'足あと '+fp:''}</span></button>
+      ${open?`<div class="body">${p.steps.map((s,i)=>`<button class="mstep" data-step="${p.id}:${i}"><span>${esc(s)}</span><small>この一歩にする</small></button>`).join('')}${here?'':`<button class="btn btn-soft" data-here="${p.id}">ここにいる</button>`}</div>`:''}</div>`;
+  });
+  html+=`</div><p class="loop">↺ 表現・伝達のあとは、次の探究へ。行ったり来たりしてかまいません。</p>
+    <h2 class="ttl" style="font-size:20px">成長の記録</h2>
+    <div class="stats">
+      <div class="stat"><div class="v">Lv ${L.lv}</div><div class="l">反応レベル（累積 ${S.totalEnergy}）</div></div>
+      <div class="stat"><div class="v">${S.researchSessionCount}<small> 回</small></div><div class="l">研究に戻った</div></div>
+      <div class="stat"><div class="v">${S.notebookConfirmationCount}<small> 回</small></div><div class="l">紙ノートに痕跡を残した</div></div>
+      <div class="stat"><div class="v">${S.ownedCharacterIds.length}<small> / ${CHARS.length}</small></div><div class="l">発見した生命体（観測 ${S.observationCount}回）</div></div>
+    </div>
+    <div id="draftSec"></div>
+    <h2 class="ttl sm">反応図鑑</h2>
+    <div class="rgrid">${REACTIONS.map((R,i)=>i<L.lv-1
+      ?`<div class="rcard paper"><svg class="rmark" viewBox="0 0 46 28" aria-hidden="true"><path d="M3 22 L12 22 C20 22 20 5 27 5 C33 5 34 24 43 24" fill="none" stroke="${R.color}" stroke-width="4" stroke-linecap="round" filter="url(#wobS)"/></svg><b>${R.label}</b><span>${R.fact}</span></div>`
+      :`<div class="rcard locked">反応Lv ${i+2}で記録</div>`).join('')}</div>
+    <div class="note settings"><span class="lbl" style="color:var(--ink)">音と振動</span>
+      <div class="chips"><button class="chip" id="tSound" aria-pressed="${!!S.settings.sound}">効果音 ${S.settings.sound?'あり':'なし'}</button><button class="chip" id="tVibe" aria-pressed="${!!S.settings.vibe}">振動 ${S.settings.vibe?'あり':'なし'}</button></div>
+      <span style="font-size:12px">研究中は、音も振動も出ません。振動はAndroidのみです。</span></div>
+    <div class="note" style="display:flex;flex-direction:column;gap:4px"><span><b>${esc(S.profile.displayName)}</b>さん　${SBY[S.profile.stage]?SBY[S.profile.stage].label:''}</span>
+      <span>興味：${esc((S.profile.interests||[]).join('、'))}</span><span>メンター：${S.profile.mentor?esc(S.profile.mentor):'未設定（任意）'}</span>
+      <button class="btn btn-soft" id="editP" style="margin-top:6px">プロフィールを変える</button></div>
+    ${TEST_BUILD?`<div class="note testbox"><span>テスト参加コード</span><span class="code">${esc(S.testCode||'')}</span>
+      <span>テスト期間の終わりに、担当者の案内に合わせて結果を送ってください。名前や研究内容は含まれません。</span>
+      ${S.lastSentAt?`<span style="font-size:13px">前回送った日時：${fmtDate(S.lastSentAt)} ${fmtTime(S.lastSentAt)}</span>`:''}
+      <button class="btn btn-primary" id="exportBtn" style="min-height:56px;font-size:18px">テスト結果を送る</button></div>`:''}
+    <p class="note">このアプリは正式な研究記録ではありません。研究内容・実験結果・考察などは、所属先のルールに従って正式な研究ノートに記録してください。</p>
+    <button class="btn btn-quiet" id="reset" style="align-self:flex-start;padding-left:0">この端末のデータを消去する</button></section>`;
+  main.innerHTML=html;
+  fillDraftSection();
+  $('#qStart').onclick=openQuiz;
+  main.querySelectorAll('[data-node]').forEach(b=>b.onclick=()=>{ openNode=openNode===b.dataset.node?null:b.dataset.node; renderMap(); });
+  main.querySelectorAll('[data-here]').forEach(b=>b.onclick=()=>{ bump('hereSets'); S.procStage=b.dataset.here; S.custom=null; S.daily.stepShift=0; save(); toast(`「${PBY[S.procStage].name}」にいます`,900); renderMap(); });
+  main.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>{ bump('mapPicks'); const [pid,i]=b.dataset.step.split(':'); S.procStage=pid; setCustomStep(PBY[pid].steps[+i],pid); toast('今日の一歩にしました',900); go('home'); });
+  $('#editP').onclick=openProfile;
+  $('#tSound').onclick=()=>{ S.settings.sound=!S.settings.sound; save(); SFX.play('tap'); renderMap(); };
+  $('#tVibe').onclick=()=>{ S.settings.vibe=!S.settings.vibe; save(); hap(20); renderMap(); };
+  if(TEST_BUILD) $('#exportBtn').onclick=openExport;
+  $('#reset').onclick=()=>{ if(confirm('この端末に保存された記録・生命体・エネルギーをすべて消去します。よろしいですか？')){ try{ localStorage.removeItem(KEY); localStorage.removeItem('kenkyu-fuwafuwa-alpha-v1'); }catch(e){} MDB.clear().catch(()=>{}); S=fresh(); ob={name:'',stage:null,interests:[],step:1}; view='home'; render(); } };
+}
+/* ----- テスト結果の書き出し（研究内容・名前は含めない） ----- */
+function exportData(){
+  const days=[...new Set(S.sessions.map(x=>today(new Date(x.startTime))))].sort();
+  let gapReturns=0; for(let i=1;i<days.length;i++) if(dayNum(days[i])-dayNum(days[i-1])>=3) gapReturns++;
+  const mins=S.sessions.reduce((a,x)=>a+x.duration,0)/60, L=levelInfo(S.totalEnergy);
+  return {code:S.testCode, ver:'chem-alpha-3d-1', from:S.metrics.firstUse, at:today(),
+    usedDays:S.metrics.firstUse?dayNum(today())-dayNum(S.metrics.firstUse)+1:0, loginDays:S.loginDays,
+    sessions:S.researchSessionCount, activeDays:days.length, gapReturns, totalMin:Math.round(mins),
+    medianMin:(()=>{ const a=S.sessions.map(x=>x.duration/60).sort((p,q)=>p-q); return a.length?Math.round(a[Math.floor(a.length/2)]):0; })(),
+    notebook:S.notebookConfirmationCount, later:S.metrics.later, level:L.lv, energy:S.totalEnergy,
+    observations:S.observationCount, found:S.ownedCharacterIds.length, stage:S.profile&&S.profile.stage,
+    proc:S.procStage, footprints:S.footprints, swaps:S.metrics.swaps, mapPicks:S.metrics.mapPicks, hereSets:S.metrics.hereSets,
+    taps:S.metrics.taps, tools:S.metrics.tools||{}, memoText:S.metrics.memoText||0, memoPhoto:S.metrics.memoPhoto||0, memoEdits:S.metrics.memoEdits||0, memoExports:S.metrics.memoExports||0, qRounds:S.metrics.qRounds||0, qCorrect:S.metrics.qCorrect||0, stemTaps:S.metrics.stemTaps||0, resumes:S.metrics.resumes, recovers:S.metrics.recovers, levelUps:S.metrics.levelUps,
+    log:S.sessions.map(x=>[today(new Date(x.startTime)),Math.round(x.duration/60),x.proc||''])};
+}
+function exportText(){
+  const d=exportData();
+  return `【研究フワフワ大脱出 テスト結果】
+参加コード：${d.code}
+使った期間：${d.from||'-'}〜${d.at}（${d.usedDays}日間、開いた日 ${d.loginDays}日）
+研究に戻った回数：${d.sessions}回（研究した日 ${d.activeDays}日、3日以上空いてからの再開 ${d.gapReturns}回）
+研究した時間：合計${d.totalMin}分（1回あたり中央値 ${d.median||d.medianMin}分）
+紙ノート「書いた」：${d.notebook}回／「あとで書く」：${d.later}回
+反応Lv：${d.level}　観測：${d.observations}回　発見：${d.found}/13体
+---
+${JSON.stringify(d)}`;
+}
+function openExport(){
+  bump('exports'); save();
+  const txt=exportText(), canSend=!!RESULT_ENDPOINT;
+  const last=S.lastSentAt?`${fmtDate(S.lastSentAt)} ${fmtTime(S.lastSentAt)}`:'';
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="テスト結果">
+    <h3>テスト結果</h3>
+    ${canSend?`<p class="count" style="font-size:14px">「担当者に送る」を押すと、下の内容がテストの担当者に届きます。<b>名前・研究内容・メモの文章・写真は含まれません。</b>送られるのは参加コードと、使った日数や回数だけです。何度送っても大丈夫です（いちばん新しいものが使われます）。</p>
+      <button class="btn btn-primary" id="exSend" style="min-height:58px;font-size:21px">担当者に送る</button>
+      ${last?`<p class="count" style="font-size:13px">前回送った日時：${last}</p>`:''}
+      <details class="rates"><summary>送る内容を見る</summary><textarea class="exportbox" readonly aria-label="テスト結果">${esc(txt)}</textarea></details>
+      <p class="count" style="font-size:13px;margin-top:4px">送れないときは、下のボタンでコピーして担当者に渡してください。</p>`
+    :`<p class="count" style="font-size:14px">下の内容を、担当者に送ってください（LINE・メール・フォームなど、案内された方法で）。名前や研究内容は入っていません。</p>
+      <textarea class="exportbox" readonly aria-label="テスト結果">${esc(txt)}</textarea>`}
+    ${navigator.share?`<button class="btn ${canSend?'btn-soft':'btn-primary'}" id="exShare" ${canSend?'':'style="min-height:56px;font-size:18px"'}>共有する</button>`:''}
+    <button class="btn btn-soft" id="exCopy">コピーする</button>
+    <button class="btn btn-quiet" id="exClose">閉じる</button></div>`;
+  document.body.appendChild(bg);
+  const close=()=>bg.remove(); bg.onclick=e=>{ if(e.target===bg) close(); }; bg.querySelector('#exClose').onclick=close;
+  const ta=bg.querySelector('textarea');
+  bg.querySelector('#exCopy').onclick=async()=>{
+    try{ await navigator.clipboard.writeText(txt); toast('コピーしました',900); }
+    catch(e){ if(ta){ ta.focus(); ta.select(); } try{ document.execCommand('copy'); toast('コピーしました',900); }catch(_){ toast('「送る内容を見る」を開き、長押しして全部選択し、コピーしてください',2600); } }
+  };
+  const sh=bg.querySelector('#exShare'); if(sh) sh.onclick=async()=>{ try{ await navigator.share({title:'研究フワフワ大脱出 テスト結果',text:txt}); }catch(e){} };
+  const sd=bg.querySelector('#exSend'); if(sd) sd.onclick=async()=>{
+    if(!navigator.onLine){ toast('通信できる場所で、もう一度押してください',2200); return; }
+    sd.disabled=true; sd.textContent='送っています…';
+    try{
+      await fetch(RESULT_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(Object.assign(exportData(),{token:RESULT_TOKEN,sentAt:new Date().toISOString()}))});
+      S.lastSentAt=Date.now(); bump('sends'); save(); SFX.play('gain'); hap([12,40,12]);
+      sd.textContent='送りました'; toast('担当者に送りました。ありがとう！',1600);
+    }catch(e){ sd.disabled=false; sd.textContent='担当者に送る'; toast('送れませんでした。通信を確かめてもう一度どうぞ',2400); }
+  };
+}
+
+function openProfile(){
+  const P=S.profile; let stage=P.stage, ints=[...(P.interests||[])];
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="プロフィール">
+    <div class="field"><label for="pn">呼び名</label><input id="pn" maxlength="16" value="${esc(P.displayName)}"></div>
+    <div class="field"><span class="lbl">いまの段階</span><div class="chips">${STAGES.map(s=>`<button class="chip" data-st="${s.id}" aria-pressed="${stage===s.id}">${s.label}</button>`).join('')}</div></div>
+    <div class="field"><span class="lbl">興味のある分野</span><div class="chips">${FIELDS.map(f=>`<button class="chip" data-fd="${f}" aria-pressed="${ints.includes(f)}">${f}</button>`).join('')}</div></div>
+    <div class="field"><label for="pm">メンター（任意）</label><input id="pm" maxlength="30" placeholder="相談している先生や先輩の呼び名" value="${esc(P.mentor||'')}"></div>
+    <p class="count" style="font-size:13px">研究テーマは登録しません。テーマが変わっても、そのまま使い続けられます。</p>
+    <button class="btn btn-primary" id="ps">保存する</button><button class="btn btn-quiet" id="pc">閉じる</button></div>`;
+  document.body.appendChild(bg);
+  const close=()=>bg.remove();
+  bg.onclick=e=>{ if(e.target===bg) close(); };
+  bg.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{ stage=b.dataset.st; bg.querySelectorAll('[data-st]').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
+  bg.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{ ints=toggleInterest(ints,b.dataset.fd); bg.querySelectorAll('[data-fd]').forEach(x=>x.setAttribute('aria-pressed',ints.includes(x.dataset.fd))); });
+  bg.querySelector('#pc').onclick=close;
+  bg.querySelector('#ps').onclick=()=>{ const nm=bg.querySelector('#pn').value.trim(); if(nm) P.displayName=nm; P.stage=P.researchStage=stage; P.interests=ints.length?ints:['まだ決めていない']; P.mentor=bg.querySelector('#pm').value.trim(); save(); close(); renderMap(); toast('保存しました',800); };
+}
+
+/* ----- ④⑥ 広場（同じ悩みを持つ人どうしで、一歩を手渡す） ----- */
+let DB=null, USER=null, UID=null, canWrite=null, cloudReady=false, posts=[], unsubPosts=null, lastPostAt=0;
+let flt={stage:'all',field:'all',q:''}, postCat='悩み', draft='';
+const CATS=['悩み','質問','ひらめき','一歩の報告'];
+const RTYPES=[{id:'wakaru',label:'わかる'},{id:'ouen',label:'応援'},{id:'nice',label:'ナイス一歩'}];
+const pendingDoc=new Set();
+function renderPlaza(){
+  setChrome(true);
+  const readOnly=!DB||!UID||canWrite===false;
+  main.innerHTML=`<section class="screen narrow">
+    <div><h2 class="ttl">広場</h2><p class="count">高校生も大学生も大学院生も、同じように迷っています。一歩を手渡しあう場所です。</p></div>
+    ${!cloudReady?`<p class="note">広場に接続しています…</p>`:(!DB?`<p class="note">この画面では広場を使えません。研究・マップ・観測はそのまま使えます。</p>`:`
+    ${readOnly?`<p class="note">閲覧のみです（投稿するには、このページの編集・参加権限が必要です）。</p>`:`
+    <div class="composer paper">
+      <div class="chips" role="group" aria-label="種類">${CATS.map(c=>`<button class="chip" data-cat="${c}" aria-pressed="${postCat===c}">${c}</button>`).join('')}</div>
+      <textarea id="ptext" maxlength="${POST_MAX}" placeholder="いま迷っていること、小さな一歩の報告など" aria-label="投稿">${esc(draft)}</textarea>
+      <div class="crow"><span class="cc" id="pcc">${draft.length} / ${POST_MAX}</span><button class="btn-small" id="psend">投稿する</button></div>
+      <span class="count" style="font-size:12px">実名・学校名・連絡先や、未発表の研究データは書かないでください。</span>
+    </div>`}
+    <div class="filters">
+      <div class="chips" role="group" aria-label="段階で絞り込み"><button class="chip" data-fs="all" aria-pressed="${flt.stage==='all'}">すべて</button>${STAGES.slice(0,3).map(s=>`<button class="chip" data-fs="${s.id}" aria-pressed="${flt.stage===s.id}">${s.short}</button>`).join('')}</div>
+      <div class="row"><select id="ffield" aria-label="分野で絞り込み"><option value="all">すべての分野</option>${FIELDS.slice(0,-1).map(f=>`<option ${flt.field===f?'selected':''}>${f}</option>`).join('')}</select>
+      <input id="fq" type="search" placeholder="ことばで探す" value="${esc(flt.q)}" aria-label="ことばで探す"></div>
+    </div>
+    <div id="feed" style="display:flex;flex-direction:column;gap:12px"></div>`)}
+  </section>`;
+  if(!DB) return;
+  if(!readOnly){
+    const ta=$('#ptext'); ta.oninput=()=>{ draft=ta.value; $('#pcc').textContent=`${draft.length} / ${POST_MAX}`; };
+    main.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ postCat=b.dataset.cat; main.querySelectorAll('[data-cat]').forEach(x=>x.setAttribute('aria-pressed',x===b)); });
+    $('#psend').onclick=submitPost;
+  }
+  main.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{ flt.stage=b.dataset.fs; main.querySelectorAll('[data-fs]').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFeed(); });
+  $('#ffield').onchange=e=>{ flt.field=e.target.value; renderFeed(); };
+  let qt; $('#fq').oninput=e=>{ clearTimeout(qt); qt=setTimeout(()=>{ flt.q=e.target.value.trim(); renderFeed(); },200); };
+  renderFeed();
+}
+function countR(p,t){ return Object.values(p.reactions||{}).filter(r=>r&&r[t]).length; }
+function renderFeed(){
+  const box=$('#feed'); if(!box) return;
+  const q=flt.q.toLowerCase();
+  const list=posts.filter(p=>!S.hidden.includes(p.id))
+    .filter(p=>flt.stage==='all'||p.stage===flt.stage)
+    .filter(p=>flt.field==='all'||(p.interests||[]).includes(flt.field))
+    .filter(p=>!q||(p.text||'').toLowerCase().includes(q)||(p.nick||'').toLowerCase().includes(q)||(p.cat||'').includes(q));
+  if(!list.length){ box.innerHTML=`<p class="empty">${posts.length?'条件に合う投稿はまだありません。':'まだ投稿はありません。最初のひとことをどうぞ。'}</p>`; return; }
+  const readOnly=!UID||canWrite===false;
+  box.innerHTML=list.map(p=>{
+    const st=SBY[p.stage]||SBY.ot, mine=p.author===UID, my=(p.reactions||{})[UID]||{};
+    const reps=Object.entries(p.replies||{}).map(([id,r])=>({id,...r})).sort((a,b)=>a.createdAt-b.createdAt);
+    return `<article class="post" data-pid="${esc(p.id)}">
+      <header><span class="pava">${art(BYID[p.charId]?p.charId:STARTER,'mini')}</span>
+        <div class="who"><b>${esc(p.nick||'だれか')}</b><span class="sb" style="--sb:var(--s-${st.id})">${st.short}</span><div class="meta"><span class="cat">${esc(p.cat||'')}</span>　${ago(p.createdAt||Date.now())}</div></div>
+        ${mine?`<button class="icon-btn" data-del="${esc(p.id)}">削除</button>`:`<button class="icon-btn" data-hide="${esc(p.id)}">非表示</button>`}</header>
+      <p class="ptext">${esc(p.text)}</p>
+      <div class="reacts">${RTYPES.map(t=>`<button class="rbtn" data-r="${t.id}" aria-pressed="${!!my[t.id]}" ${readOnly?'disabled':''}>${t.label} ${countR(p,t.id)||''}</button>`).join('')}
+        ${readOnly?'':`<button class="rbtn" data-reply="${esc(p.id)}">一歩を提案・返信</button>`}</div>
+      ${reps.length?`<div class="replies">${reps.map(r=>{ const rs=SBY[r.stage]||SBY.ot; return `<div class="reply${r.kind==='step'?' stepr':''}">
+        <span class="pava" style="width:30px;height:30px">${art(BYID[r.charId]?r.charId:STARTER,'mini')}</span>
+        <span class="rt">${r.kind==='step'?'<span class="tag">一歩の提案</span>':''}${esc(r.text)}<span class="meta">　${esc(r.nick||'だれか')}<span class="sb" style="--sb:var(--s-${rs.id})">${rs.short}</span></span></span>
+        ${r.kind==='step'?`<button class="btn-small" data-take="${esc(p.id)}|${esc(r.id)}">もらう</button>`:''}</div>`; }).join('')}</div>`:''}
+    </article>`;
+  }).join('');
+  box.querySelectorAll('.post').forEach(el=>{
+    const pid=el.dataset.pid;
+    el.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>react(pid,b.dataset.r,b));
+  });
+  box.querySelectorAll('[data-reply]').forEach(b=>b.onclick=()=>openReply(b.dataset.reply));
+  box.querySelectorAll('[data-take]').forEach(b=>b.onclick=()=>{ const [pid,rid]=b.dataset.take.split('|'); const p=posts.find(x=>x.id===pid); const r=p&&p.replies&&p.replies[rid]; if(!r) return; setCustomStep(r.text,null,r.nick||'だれか'); toast('今日の一歩にしました',900); go('home'); });
+  box.querySelectorAll('[data-hide]').forEach(b=>b.onclick=()=>{ S.hidden.push(b.dataset.hide); if(S.hidden.length>500) S.hidden=S.hidden.slice(-500); save(); renderFeed(); toast('非表示にしました',800); });
+  box.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{ if(!confirm('この投稿を削除しますか？')) return; try{ await DB.doc('posts/'+b.dataset.del).delete(); toast('削除しました',800); }catch(e){ toast('削除できませんでした。時間をおいて試してください。',2000); } });
+}
+function myCard(){ return {author:UID,nick:S.profile.displayName,stage:S.profile.stage,charId:S.selectedCharacterId,createdAt:Date.now()}; }
+async function submitPost(){
+  const text=draft.trim();
+  if(!text){ toast('ひとこと書いてから投稿してください',1200); return; }
+  if(Date.now()-lastPostAt<POST_INTERVAL_MS){ toast('少し時間をおいてから投稿してください',1500); return; }
+  const btn=$('#psend'); btn.disabled=true;
+  try{
+    await DB.collection('posts').doc().set({...myCard(),interests:S.profile.interests||[],cat:postCat,text:text.slice(0,POST_MAX),reactions:{},replies:{}});
+    lastPostAt=Date.now(); draft=''; toast('投稿しました',800); renderPlaza();
+  }catch(e){ btn.disabled=false; handleWriteErr(e); }
+}
+async function react(pid,type,btn){
+  if(pendingDoc.has(pid)) return;
+  const p=posts.find(x=>x.id===pid); if(!p) return;
+  const on=!((p.reactions||{})[UID]||{})[type];
+  // ③ 即時フィードバック：先に画面を変える
+  btn.setAttribute('aria-pressed',on); btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+  const c=countR(p,type)+(on?1:-1); btn.textContent=`${RTYPES.find(t=>t.id===type).label} ${c||''}`;
+  pendingDoc.add(pid);
+  try{ await DB.doc('posts/'+pid).update({reactions:{[UID]:{[type]:on}}}); }
+  catch(e){ handleWriteErr(e); renderFeed(); }
+  finally{ pendingDoc.delete(pid); }
+}
+function openReply(pid){
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet form" role="dialog" aria-modal="true" aria-label="返信">
+    <h3>一歩を手渡す</h3>
+    <p class="count" style="font-size:14px">相手がすぐ始められる大きさの一歩を、${STEP_MAX}字以内で。相手は「もらう」を押すと、それを今日の一歩にできます。</p>
+    <textarea id="rtext" maxlength="${REPLY_MAX}" placeholder="例：先行研究の要旨だけ読んでみよう" aria-label="返信"></textarea>
+    <div class="crow"><span class="cc" id="rcc">0</span></div>
+    <button class="btn btn-primary" id="rstep" style="min-height:56px;font-size:18px">一歩として提案する</button>
+    <button class="btn btn-soft" id="rcom">ひとことを返す</button>
+    <button class="btn btn-quiet" id="rcl">閉じる</button></div>`;
+  document.body.appendChild(bg);
+  const ta=bg.querySelector('#rtext'), cc=bg.querySelector('#rcc'), bs=bg.querySelector('#rstep');
+  const upd=()=>{ const n=ta.value.trim().length; cc.textContent=`${n}字${n>STEP_MAX?'（一歩は'+STEP_MAX+'字まで）':''}`; bs.disabled=!n||n>STEP_MAX; };
+  ta.oninput=upd; upd(); setTimeout(()=>ta.focus(),50);
+  const close=()=>bg.remove();
+  bg.onclick=e=>{ if(e.target===bg) close(); }; bg.querySelector('#rcl').onclick=close;
+  const send=async kind=>{ const t=ta.value.trim(); if(!t) return; if(kind==='step'&&t.length>STEP_MAX) return;
+    const rid='r'+Date.now().toString(36)+Math.floor(rand()*1e4).toString(36);
+    try{ await DB.doc('posts/'+pid).update({replies:{[rid]:{...myCard(),kind,text:t.slice(0,REPLY_MAX)}}}); close(); toast(kind==='step'?'一歩を手渡しました':'返信しました',900); }
+    catch(e){ handleWriteErr(e); } };
+  bs.onclick=()=>send('step'); bg.querySelector('#rcom').onclick=()=>send('comment');
+}
+function handleWriteErr(e){
+  const c=e&&e.code;
+  if(c==='invalid_argument'){ canWrite=false; toast('この画面では書き込めません（閲覧のみ）',2000); if(view==='plaza') renderPlaza(); }
+  else if(c==='quota_exceeded') toast('広場の保存容量がいっぱいです。管理者に連絡してください。',2600);
+  else if(c==='resource_exhausted') toast('少し時間をおいてから試してください',1600);
+  else toast('送信できませんでした。通信を確かめてもう一度どうぞ。',2000);
+}
+
+/* ----- クラウド（広場＋個人記録の同期） ----- */
+let syncTimer=null, syncing=false, syncAgain=false;
+function scheduleSync(){ if(!DB||!UID||!S.profile) return; clearTimeout(syncTimer); syncTimer=setTimeout(doSync,2500); }
+async function doSync(){
+  if(syncing){ syncAgain=true; return; } syncing=true;
+  try{ await DB.doc('data/users/'+UID+'/state').set({json:JSON.stringify(S),updatedAt:S.updatedAt||Date.now()}); }catch(e){}
+  syncing=false; if(syncAgain){ syncAgain=false; doSync(); }
+}
+async function pullRemote(){
+  try{
+    const d=await DB.doc('data/users/'+UID+'/state').get();
+    if(d.exists){ const r=d.data();
+      if((r.updatedAt||0)>(S.updatedAt||0)&&!S.running&&!S.ending){ S=Object.assign(fresh(),JSON.parse(r.json)); try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} render(); toast('ほかの端末の記録を読み込みました',1500); }
+      else if((S.updatedAt||0)>(r.updatedAt||0)) scheduleSync();
+    } else scheduleSync();
+  }catch(e){}
+}
+async function initCloud(){
+  let tries=0; while(!(window.claude&&window.claude.use)&&tries<20){ await new Promise(r=>setTimeout(r,250)); tries++; }
+  if(window.claude&&window.claude.use){
+    try{ USER=await window.claude.use('user'); }catch(e){ USER=null; }
+    try{ DB=await window.claude.use('db'); }catch(e){ DB=null; }
+    if(USER){ try{ UID=await USER.id(); }catch(e){} try{ canWrite=await USER.can('data.write'); }catch(e){} }
+    if(DB){
+      unsubPosts=DB.collection('posts').orderBy('createdAt','desc').limit(80).onSnapshot(snap=>{
+        posts=snap.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));
+        if(view==='plaza') renderFeed();
+      },()=>{ DB=null; if(view==='plaza') renderPlaza(); });
+      if(UID) pullRemote();
+    }
+  }
+  cloudReady=true;
+  if(view==='plaza') renderPlaza();
+}
+
+/* ----- 観測 ----- */
+function drawChar(){
+  const boost=Math.min(PITY_MAX,1+PITY_STEP*(S.dupStreak||0));
+  const w=CHARS.map(c=>c.p*(!S.ownedCharacterIds.includes(c.id)&&c.r!=='UR'?boost:1));
+  let r=rand()*w.reduce((a,b)=>a+b,0),acc=0;
+  for(let i=0;i<CHARS.length;i++){ acc+=w[i]; if(r<acc) return CHARS[i]; }
+  return CHARS[0];
+}
+function obsControls(){
+  const e=S.observationEnergy,can=e>=OBS_COST;
+  return `<button class="btn btn-primary" id="obsBtn" ${can?'':'disabled'}>未確認研究生命体を観測する</button>
+    <p class="sub">${can?`観測エネルギー ${e}（1回 ${OBS_COST}）`:`あと${OBS_COST-e}エネルギー`}</p>${can?'':'<p class="sub">研究に戻ると、エネルギーがたまります。</p>'}`;
+}
+function haloSVG(r){
+  const n={N:10,R:14,SR:18,SSR:22,UR:30}[r]||10;
+  const col=r==='UR'?['#FF6FB5','#5FB8FF','#6FE0B0','#FFD24A','#B48CF0']:getComputedStyle(document.documentElement).getPropertyValue('--r-'+r).trim()||'#888';
+  return `<svg viewBox="0 0 200 200" aria-hidden="true">${burstLines(100,100,n,col,62,92,0,r==='N'?2.4:3.4)}${r==='SSR'||r==='UR'?burstLines(100,100,n,col,40,52,.25,2):''}</svg>`;
+}
+function renderObserve(){
+  setChrome(true);
+  main.innerHTML=`<section class="screen narrow"><h2 class="ttl">観測ノート</h2>
+    <div class="obs-page paper tape"><div class="lens" id="lens" data-phase="idle">
+      <svg class="cross" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M50 4v14M50 82v14M4 50h14M82 50h14"/><circle cx="50" cy="50" r="2" fill="currentColor"/></svg>
+      <div class="creature" id="creature"></div>
+      <p class="idle-msg" id="idleMsg">レンズの先に、<br>まだ描かれていない<br>生命体がいます。</p></div></div>
+    <div class="obs-panel" id="panel">${obsControls()}</div>
+    <details class="rates"><summary>観測率を見る</summary><table>${CHARS.map(c=>`<tr><td><span class="badge" style="--rb:var(--r-${c.r})">${c.r}</span> ${S.ownedCharacterIds.includes(c.id)?esc(c.name):'？？？？？？'}</td><td>${c.p}%</td></tr>`).join('')}</table>
+    <p class="count" style="font-size:13px;margin:0 0 12px">表示は基本の観測率です。観測済みの生命体が続くと、まだ見ていない生命体（URを除く）が少しずつ見つかりやすくなります。URはどれだけ観測しても確定しません。</p></details></section>`;
+  const b=$('#obsBtn'); if(b) b.onclick=observe;
+}
+function observe(){
+  if(busy||S.observationEnergy<OBS_COST) return; busy=true;
+  const c=drawChar(), isNew=!S.ownedCharacterIds.includes(c.id), memoBefore=isNew?0:memoCount(c.id);
+  S.observationEnergy-=OBS_COST; S.observationCount++;
+  if(isNew) S.ownedCharacterIds.push(c.id);
+  S.charObs[c.id]=(S.charObs[c.id]||0)+1; S.dupStreak=isNew?0:(S.dupStreak||0)+1; save();
+  const memoAfter=memoCount(c.id), nextT=MEMO_T.find(t=>t>obsOf(c.id));
+  const lens=$('#lens'), cr=$('#creature'), panel=$('#panel');
+  $('#idleMsg').remove();
+  cr.innerHTML=`<div class="halo"></div><div class="sk">${art(c.id,'sil')}</div><div class="paint">${art(c.id)}</div>`;
+  panel.innerHTML=`<p class="sub" aria-live="polite">観測中…</p>`;
+  SFX.play('scan');
+  const T=reduceMotion()?[0,400,800,1100]:[0,900,1700,2350];
+  lens.dataset.phase='scan';
+  setTimeout(()=>lens.dataset.phase='sil',T[1]);
+  setTimeout(()=>{ cr.querySelector('.halo').innerHTML=haloSVG(c.r); lens.dataset.phase='glow'; },T[2]);
+  setTimeout(()=>{
+    lens.dataset.phase='reveal'; SFX.play('reveal',c.r); hap(c.r==='N'||c.r==='R'?15:[15,40,15,40,30]);
+    startBoil(cr.querySelector('.paint svg'));
+    const msg=isNew?'新しい生命体を観測しました。図鑑に記録しました。'
+      :(memoAfter>memoBefore?`観測ログ ${S.charObs[c.id]}回目。生態メモが1行ふえました。`:`観測ログ ${S.charObs[c.id]}回目。${nextT?`あと${nextT-obsOf(c.id)}回で、次の生態メモ。`:'生態メモはすべてそろっています。'}`);
+    panel.innerHTML=`<span class="badge" style="--rb:var(--r-${c.r})">${c.r}</span>
+      <p class="result-name"><span class="hl">${esc(c.name)}</span></p>
+      <p class="sub" aria-live="polite">${msg}</p>
+      ${memoAfter>memoBefore||isNew?`<p class="sub" style="font-family:var(--hand);font-size:17px;color:var(--ink)">「${esc(MEMO[c.id][memoAfter-1])}」</p>`:''}
+      ${isNew&&S.selectedCharacterId!==c.id?`<button class="btn btn-soft" id="toHome">ホームに連れていく</button>`:''}
+      <button class="btn btn-quiet" id="again">${S.observationEnergy>=OBS_COST?'もう一度観測する':(S.profile&&S.researchSessionCount===0?'今日の一歩へ':'観測を終える')}</button>`;
+    const th=$('#toHome'); if(th) th.onclick=()=>{ S.selectedCharacterId=c.id; save(); go('home'); };
+    $('#again').onclick=()=>{ busy=false; if(S.observationEnergy>=OBS_COST) renderObserve(); else go('home'); };
+    busy=false; setChrome(true);
+  },T[3]);
+}
+
+/* ----- 図鑑 ----- */
+function renderZukan(){
+  setChrome(true);
+  const owned=S.ownedCharacterIds;
+  main.innerHTML=`<section class="screen"><div><h2 class="ttl">生命体図鑑</h2><p class="count">${owned.length} / ${CHARS.length} 体を発見。同じ生命体を観測するたびに、生態メモが増えていきます。</p></div>
+    <div class="grid">${CHARS.map(c=>owned.includes(c.id)
+      ?`<button class="cell${S.selectedCharacterId===c.id?' current':''}" data-id="${c.id}">${art(c.id)}<span class="badge" style="--rb:var(--r-${c.r})">${c.r}</span><span class="nm">${esc(c.name)}</span><span class="meta">メモ ${memoCount(c.id)}/4</span></button>`
+      :`<div class="cell unknown">${art(c.id,'sil')}<span class="nm">？？？？？？</span></div>`).join('')}</div>
+    <p class="count" style="text-align:center">ホームに連れていった1体が、${TEST_BUILD?'あなたのノートの相棒です。':'広場でのあなたのアイコンになります。<br>図鑑そのものは、ほかの人には見えません。'}</p></section>`;
+  main.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{ SFX.play('tap'); openSheet(b.dataset.id); });
+}
+function openSheet(id){
+  const c=BYID[id], cur=S.selectedCharacterId===id, n=memoCount(id);
+  const bg=document.createElement('div'); bg.className='sheet-bg';
+  bg.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(c.name)}">
+    ${art(id)}<span class="badge" style="--rb:var(--r-${c.r})">${c.r}</span><h3>${esc(c.name)}</h3>
+    <p class="count">観測ログ ${obsOf(id)}回</p>
+    <ul class="memo">${MEMO[id].map((m,i)=>i<n?`<li>${esc(m)}</li>`:`<li class="locked">？？？（観測${MEMO_T[i]}回目で解放）</li>`).join('')}</ul>
+    ${cur?'<p class="count">いまホームにいます。</p>':'<button class="btn btn-primary" id="setH">ホームに連れていく</button>'}
+    <button class="btn btn-quiet" id="cls">閉じる</button></div>`;
+  document.body.appendChild(bg);
+  startBoil(bg.querySelector('.sheet>svg'));
+  const close=()=>bg.remove(); bg.onclick=e=>{ if(e.target===bg) close(); }; bg.querySelector('#cls').onclick=close;
+  const s=bg.querySelector('#setH'); if(s) s.onclick=()=>{ S.selectedCharacterId=id; save(); close(); go('home'); };
+}
+
+/* ===== 起動 ===== */
+if(TEST_BUILD){ const pb=document.querySelector('nav [data-tab="plaza"]'); if(pb) pb.remove(); document.querySelector('nav .in').style.gridTemplateColumns='repeat(4,1fr)'; }
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{ if(!busy) go(b.dataset.tab); });
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&S.running&&view==='focus'){ const c=$('#clock'); if(c) c.textContent=fmt((Date.now()-S.running.startTime)/1000); } });
+
+document.addEventListener('keydown',e=>{ if(e.key!=='Escape') return;
+  const ov=document.querySelector('.react-ov'); if(ov){ ov.click(); return; }
+  const bgs=document.querySelectorAll('.sheet-bg'); if(bgs.length){ const bg=bgs[bgs.length-1]; bg.dispatchEvent(new MouseEvent('click',{bubbles:true})); } });
+load(); rollDaily();
+if(S.profile){
+  if(S.running) view='recover';
+  else if(S.lastLoginDate!==today()){
+    S.lastLoginDate=today(); S.loginDays=(S.loginDays||0)+1;
+    const special=S.loginDays%LOGIN_MILESTONE_EVERY===0;
+    const lvUp=gainEnergy(special?LOGIN_MILESTONE:LOGIN_NORMAL); save();
+    const t=()=>special?toast(`✦ ${S.loginDays}日目の記念 エネルギー +${LOGIN_MILESTONE}`,1300):toast('エネルギー +1',700);
+    if(lvUp) pendingFx=()=>reactionFx(lvUp,t); else setTimeout(t,50);
+  }
+}
+if(S.profile&&!S.testCode){ S.testCode=makeCode(); if(!S.metrics.firstUse) S.metrics.firstUse=today(); save(); }
+render();
+cleanupMemos();
+if(!TEST_BUILD) initCloud(); else cloudReady=true;
+if(TEST_BUILD&&'serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
+})();
+</script>
+</body>
+</html>
